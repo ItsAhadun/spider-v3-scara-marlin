@@ -110,6 +110,6 @@ We plan to submit patch 0001 to Marlin as a new board once `M122` confirms the U
 
 - HALO arm by [koaldesigns](https://github.com/koaldesigns/HALO), licensed CC BY-NC-SA 4.0. This repo contains no HALO files, only measurements taken from them.
 - [Marlin](https://github.com/MarlinFirmware/Marlin) by the Marlin team.
-- Patches by Abdul Ahad and Muhammad Abdullah.
+- Patches by Abdul Ahad.
 
 GPL-3.0, the same license as Marlin. See [LICENSE](LICENSE).
