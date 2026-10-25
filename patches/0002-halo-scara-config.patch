@@ -1,0 +1,231 @@
+diff --git a/Marlin/Configuration.h b/Marlin/Configuration.h
+index 5451f9e..58fb208 100644
+--- a/Marlin/Configuration.h
++++ b/Marlin/Configuration.h
+@@ -68,7 +68,7 @@
+ 
+ // Choose the name from boards.h that matches your setup
+ #ifndef MOTHERBOARD
+-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
++  #define MOTHERBOARD BOARD_FYSETC_SPIDER_V3
+ #endif
+ 
+ // @section serial
+@@ -81,7 +81,7 @@
+  *
+  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  */
+-#define SERIAL_PORT 0
++#define SERIAL_PORT -1
+ 
+ /**
+  * Serial Port Baud Rate
+@@ -152,9 +152,9 @@
+  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
+  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC2240', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
+  */
+-#define X_DRIVER_TYPE  A4988
+-#define Y_DRIVER_TYPE  A4988
+-#define Z_DRIVER_TYPE  A4988
++#define X_DRIVER_TYPE  TMC2209
++#define Y_DRIVER_TYPE  TMC2209
++#define Z_DRIVER_TYPE  TMC2209
+ //#define X2_DRIVER_TYPE A4988
+ //#define Y2_DRIVER_TYPE A4988
+ //#define Z2_DRIVER_TYPE A4988
+@@ -166,7 +166,7 @@
+ //#define U_DRIVER_TYPE  A4988
+ //#define V_DRIVER_TYPE  A4988
+ //#define W_DRIVER_TYPE  A4988
+-#define E0_DRIVER_TYPE A4988
++#define E0_DRIVER_TYPE TMC2209
+ //#define E1_DRIVER_TYPE A4988
+ //#define E2_DRIVER_TYPE A4988
+ //#define E3_DRIVER_TYPE A4988
+@@ -1098,22 +1098,22 @@
+  *   https://www.thingiverse.com/thing:1241491
+  */
+ 
+-//#define SCARA
++#define SCARA
+ #if ENABLED(SCARA)
+   // If movement is choppy try lowering this value
+   #define DEFAULT_SEGMENTS_PER_SECOND 200
+ 
+   // Length of inner and outer support arms. Measure arm lengths precisely.
+-  #define SCARA_LINKAGE_1    135    // (mm)
+-  #define SCARA_LINKAGE_2    135    // (mm)
++  #define SCARA_LINKAGE_1    255.0  // (mm) HALO ProximalArm bore-to-bore
++  #define SCARA_LINKAGE_2    164.1  // (mm) PLACEHOLDER: HALO tool-mount holes, not measured to nozzle
+ 
+   // SCARA tower offset (position of shoulder axis relative to bed zero position)
+   // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
+-  #define SCARA_OFFSET_X       0    // (mm)
+-  #define SCARA_OFFSET_Y    -150    // (mm)
++  #define SCARA_OFFSET_X       100    // (mm) PLACEHOLDER: bed layout not decided
++  #define SCARA_OFFSET_Y    -120    // (mm) PLACEHOLDER: bed layout not decided
+ 
+   // Radius of unreachable area near shoulder axis
+-  #define MIDDLE_DEAD_ZONE_R   0    // (mm)
++  #define MIDDLE_DEAD_ZONE_R   91    // (mm) = L1 - L2 (inner reach; Marlin checks only this, HALO hub r = 54)
+ 
+   // Direction of elbow bend. 1 = right-handed (counterclockwise), -1 = left-handed (clockwise)
+   #define SCARA_ELBOW_DIR 1
+@@ -1123,15 +1123,15 @@
+   // 1.0 if distal arm retains its angle relative to cartesian X axis (e.g. Morgan and MPSCARA)
+   // A two-stage reduction with an intermediate pulley on the shoulder axis has crosstalk =
+   //   intermediate_pulley_teeth/elbow_pulley_teeth (first reduction stage does not affect crosstalk)
+-  #define SCARA_CROSSTALK_FACTOR (40.0/60.0)
++  #define SCARA_CROSSTALK_FACTOR (169.0/122.0) // HALO: 169T on shoulder axis -> 122T at elbow
+ 
+   // Shoulder and elbow angles when in home position. If left undefined, cartesian home is used and
+   // angles are calculated by inverse kinematics (note: M665 home offsets are still angles)
+-  #define SCARA_HOME_THETA   -40
+-  #define SCARA_HOME_PSI     160
++  #define SCARA_HOME_THETA   -40    // PLACEHOLDER: measure with M360-M364
++  #define SCARA_HOME_PSI     160    // PLACEHOLDER: measure with M360-M364
+ 
+   // Enable M360-M364 to calibrate SCARA angles
+-  //#define SCARA_CALIBRATION
++  #define SCARA_CALIBRATION
+ 
+ #endif // SCARA
+ 
+@@ -1358,7 +1358,7 @@
+  * Override with M92 (when enabled below)
+  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
+  */
+-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
++#define DEFAULT_AXIS_STEPS_PER_UNIT   { 271.52, 196.01, 400, 500 }  // A,B steps/deg (HALO 30.545:1, 16 usteps); Z 8 mm lead ASSUMED; E PLACEHOLDER
+ 
+ /**
+  * Enable support for M92. Disable to save at least ~530 bytes of flash.
+@@ -1370,7 +1370,7 @@
+  * Override with M203
+  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
+  */
+-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
++#define DEFAULT_MAX_FEEDRATE          { 100, 100, 10, 25 }
+ 
+ //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
+ #if ENABLED(LIMITED_MAX_FR_EDITING)
+@@ -1383,7 +1383,7 @@
+  * Override with M201
+  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
+  */
+-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
++#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 10000 }
+ 
+ //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
+ #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
+@@ -1398,9 +1398,9 @@
+  *   M204 R    Retract Acceleration
+  *   M204 T    Travel Acceleration
+  */
+-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
+-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
+-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
++#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
++#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
++#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+ 
+ /**
+  * Default Jerk limits (mm/s)
+@@ -1410,7 +1410,7 @@
+  * When changing speed and direction, if the difference is less than the
+  * value set here, it may happen instantaneously.
+  */
+-//#define CLASSIC_JERK
++#define CLASSIC_JERK
+ #if ENABLED(CLASSIC_JERK)
+   #define DEFAULT_XJERK 10.0
+   #define DEFAULT_YJERK 10.0
+@@ -2447,7 +2447,7 @@
+ #endif
+ 
+ // Homing speeds (linear=mm/min, rotational=°/min)
+-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
++#define HOMING_FEEDRATE_MM_M { (15*60), (15*60), (10*60) }  // A,B in deg/min (SCARA joint space), Z mm/min
+ 
+ // Edit homing feedrates with M210 and MarlinUI menu items
+ //#define EDITABLE_HOMING_FEEDRATE
+@@ -2528,7 +2528,7 @@
+  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
+  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
+  */
+-//#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
++#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+ //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
+ #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save flash.
+ #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
+@@ -3703,7 +3703,7 @@
+  * which is not as annoying as with the hardware PWM. On the other hand, if this frequency
+  * is too low, you should also increment SOFT_PWM_SCALE.
+  */
+-//#define FAN_SOFT_PWM
++#define FAN_SOFT_PWM
+ 
+ /**
+  * Incrementing this by 1 will double the software PWM frequency, affecting heaters, and
+diff --git a/Marlin/Configuration_adv.h b/Marlin/Configuration_adv.h
+index bba51f3..852585e 100644
+--- a/Marlin/Configuration_adv.h
++++ b/Marlin/Configuration_adv.h
+@@ -957,7 +957,7 @@
+ 
+ //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
+ 
+-#define HOMING_BUMP_MM      { 5, 5, 2 }       // (linear=mm, rotational=°) Backoff from endstops after first bump
++#define HOMING_BUMP_MM      { 0, 0, 0 }       // (linear=mm, rotational=°) Backoff from endstops after first bump
+ #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+ 
+ //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
+@@ -3535,7 +3535,7 @@
+    * Define your own with:
+    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
+    */
+-  #define CHOPPER_TIMING CHOPPER_DEFAULT_12V        // All axes (override below)
++  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V        // All axes (override below)
+   //#define CHOPPER_TIMING_X  CHOPPER_TIMING        // For X Axes (override below)
+   //#define CHOPPER_TIMING_X2 CHOPPER_TIMING_X
+   //#define CHOPPER_TIMING_Y  CHOPPER_TIMING        // For Y Axes (override below)
+@@ -3667,7 +3667,7 @@
+    * Comment *_STALL_SENSITIVITY to disable sensorless homing for that axis.
+    * @section tmc/stallguard
+    */
+-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
++  #define SENSORLESS_HOMING // StallGuard capable drivers only
+ 
+   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
+     // TMC2209, TMC2240: 0...255. Others: -64...63
+@@ -3675,7 +3675,7 @@
+     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
+     #define Y_STALL_SENSITIVITY  8
+     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
+-    //#define Z_STALL_SENSITIVITY  8
++    #define Z_STALL_SENSITIVITY  8
+     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+@@ -3719,7 +3719,7 @@
+    * Enable M122 debugging command for TMC stepper drivers.
+    * M122 S0/1 will enable continuous reporting.
+    */
+-  //#define TMC_DEBUG
++  #define TMC_DEBUG
+ 
+   /**
+    * You can set your own advanced settings by filling in predefined functions.
+diff --git a/platformio.ini b/platformio.ini
+index d8b249e..083a798 100644
+--- a/platformio.ini
++++ b/platformio.ini
+@@ -13,7 +13,7 @@
+ [platformio]
+ src_dir      = Marlin
+ boards_dir   = buildroot/share/PlatformIO/boards
+-default_envs = mega2560
++default_envs = STM32F446VE_fysetc_32k_bootloader
+ include_dir  = Marlin
+ extra_configs =
+     Marlin/config.ini

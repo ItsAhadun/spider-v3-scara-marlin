@@ -1,0 +1,2136 @@
+{
+  "commit": "2ef3ee62fd46bd0c5d4304732ef8e255e2bb9869",
+  "sources": [
+    "boards.h",
+    "pins.h",
+    "pins_FYSETC_SPIDER_V2_2.h",
+    "pins_FYSETC_SPIDER.h",
+    "pins_FYSETC_S6.h",
+    "pins_FYSETC_S6_common.h"
+  ],
+  "board_id": {
+    "macro": "BOARD_FYSETC_SPIDER_V2_2",
+    "value": 5223,
+    "file": "boards.h",
+    "line": 459,
+    "comment": "FYSETC Spider V2.2 (STM32F446VE)",
+    "unique_value": "5223 appears only on boards.h:459",
+    "mb_macro": {
+      "file": "boards.h",
+      "lines": [
+        607,
+        608
+      ],
+      "text": [
+        "#define _MB_1(B)  (defined(BOARD_##B) && MOTHERBOARD==BOARD_##B)",
+        "#define MB(V...)  DO(MB,||,V)"
+      ]
+    },
+    "pins_h_select": {
+      "file": "pins.h",
+      "line": 755,
+      "text": "#elif MB(FYSETC_SPIDER_V2_2)"
+    },
+    "pins_h_include": {
+      "file": "pins.h",
+      "line": 756,
+      "text": "#include \"stm32f4/pins_FYSETC_SPIDER_V2_2.h\"      // STM32F4                              env:STM32F446VE_fysetc_32k_bootloader"
+    }
+  },
+  "env": [
+    "STM32F446VE_fysetc_32k_bootloader"
+  ],
+  "env_source": "pins.h:756 comment (only env listed for this board; pins.h:750/752/754 list env:STM32F446VE_fysetc and env:STM32F446VE_fysetc_32k_bootloader for FYSETC_S6, FYSETC_S6_V2_0 and FYSETC_SPIDER)",
+  "include_chain": [
+    {
+      "step": 1,
+      "from": "pins.h:755-756",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "via": "#elif MB(FYSETC_SPIDER_V2_2) -> #include \"stm32f4/pins_FYSETC_SPIDER_V2_2.h\""
+    },
+    {
+      "step": 2,
+      "from": "pins_FYSETC_SPIDER_V2_2.h:34",
+      "file": "pins_FYSETC_SPIDER.h",
+      "via": "#include \"pins_FYSETC_SPIDER.h\" (last line; V2_2 defines lines 24-32 before it)"
+    },
+    {
+      "step": 3,
+      "from": "pins_FYSETC_SPIDER.h:104",
+      "file": "pins_FYSETC_S6.h",
+      "via": "#else branch of #if HOTENDS > 3 || E_STEPPERS > 3 (pins_FYSETC_SPIDER.h:101); otherwise #error at :102"
+    },
+    {
+      "step": 4,
+      "from": "pins_FYSETC_S6.h:49",
+      "file": "pins_FYSETC_S6_common.h",
+      "via": "#include \"pins_FYSETC_S6_common.h\""
+    },
+    {
+      "step": 5,
+      "from": "pins_FYSETC_S6_common.h:24",
+      "file": "env_validate.h",
+      "via": "#include \"env_validate.h\" (NOT in provided sources; stubbed empty)"
+    },
+    {
+      "step": 6,
+      "from": "pins.h:1148",
+      "file": "pins_lcd.h",
+      "via": "after the board chain (NOT in provided sources; stubbed empty)"
+    },
+    {
+      "step": 7,
+      "from": "pins.h:1153",
+      "file": "pins_postprocess.h",
+      "via": "after the board chain (NOT in provided sources; stubbed empty)"
+    }
+  ],
+  "config_assumptions": {
+    "config_a_uart": "MOTHERBOARD=BOARD_FYSETC_SPIDER_V2_2; X/Y/Z/E0_DRIVER_TYPE=TMC2209; HAS_TMC_UART=1; EXTRUDERS=HOTENDS=E_STEPPERS=1; EEPROM_SETTINGS enabled with no EEPROM type selected; no LCD (HAS_WIRED_LCD, IS_ULTIPANEL, IS_U8GLIB_ST7920 and the FYSETC_* LCD options undefined)",
+    "config_b_default": "Same as (a) but drivers A4988 and HAS_TMC_UART undefined (evaluates 0 in #if)",
+    "variant_c_no_eeprom_settings": "Same as (b) but EEPROM_SETTINGS not enabled"
+  },
+  "config_a_uart": {
+    "BOARD_INFO_NAME": {
+      "value": "\"FYSETC S6\"",
+      "file": "pins_FYSETC_S6.h",
+      "line": 24,
+      "overrides": [
+        {
+          "value": "\"FYSETC SPIDER V22\"",
+          "file": "pins_FYSETC_SPIDER_V2_2.h",
+          "line": 24,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"BOARD_INFO_NAME\" redefined' warning; later definition takes effect)"
+        }
+      ],
+      "not_applied": [
+        {
+          "value": "\"FYSETC SPIDER\"",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 25,
+          "reason": "not applied; enclosing: #ifndef BOARD_INFO_NAME (pins_FYSETC_SPIDER.h:24)"
+        }
+      ]
+    },
+    "DEFAULT_MACHINE_NAME": {
+      "value": "\"FYSETC S6\"",
+      "raw": "BOARD_INFO_NAME",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 25,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "BOARD_INFO_NAME",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 28,
+          "reason": "not applied; enclosing: #ifndef DEFAULT_MACHINE_NAME (pins_FYSETC_SPIDER.h:27)"
+        },
+        {
+          "value": "BOARD_INFO_NAME",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 31,
+          "reason": "not applied; enclosing: #ifndef DEFAULT_MACHINE_NAME (pins_FYSETC_S6_common.h:30)"
+        }
+      ]
+    },
+    "E0_CS_PIN": {
+      "value": "PD7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 99,
+      "overrides": []
+    },
+    "E0_DIR_PIN": {
+      "value": "PD6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 97,
+      "overrides": []
+    },
+    "E0_ENABLE_PIN": {
+      "value": "PD4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 98,
+      "overrides": []
+    },
+    "E0_SERIAL_RX_PIN": {
+      "value": "PA15",
+      "file": "pins_FYSETC_S6.h",
+      "line": 42,
+      "overrides": []
+    },
+    "E0_SERIAL_TX_PIN": {
+      "value": "PD3",
+      "file": "pins_FYSETC_S6.h",
+      "line": 41,
+      "overrides": [
+        {
+          "value": "PD7",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 82,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"E0_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "E0_STEP_PIN": {
+      "value": "PD5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 96,
+      "overrides": []
+    },
+    "E1_CS_PIN": {
+      "value": "PC14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 104,
+      "overrides": []
+    },
+    "E1_DIR_PIN": {
+      "value": "PC13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 102,
+      "overrides": []
+    },
+    "E1_ENABLE_PIN": {
+      "value": "PE5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 103,
+      "overrides": []
+    },
+    "E1_SERIAL_RX_PIN": {
+      "value": "PC5",
+      "file": "pins_FYSETC_S6.h",
+      "line": 44,
+      "overrides": []
+    },
+    "E1_SERIAL_TX_PIN": {
+      "value": "PC4",
+      "file": "pins_FYSETC_S6.h",
+      "line": 43,
+      "overrides": [
+        {
+          "value": "PC14",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 83,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"E1_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "E1_STEP_PIN": {
+      "value": "PE6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 101,
+      "overrides": []
+    },
+    "E2_CS_PIN": {
+      "value": "PC15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 109,
+      "overrides": []
+    },
+    "E2_DIR_PIN": {
+      "value": "PE4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 107,
+      "overrides": []
+    },
+    "E2_ENABLE_PIN": {
+      "value": "PE3",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 108,
+      "overrides": []
+    },
+    "E2_SERIAL_RX_PIN": {
+      "value": "PE0",
+      "file": "pins_FYSETC_S6.h",
+      "line": 46,
+      "overrides": []
+    },
+    "E2_SERIAL_TX_PIN": {
+      "value": "PE1",
+      "file": "pins_FYSETC_S6.h",
+      "line": 45,
+      "overrides": [
+        {
+          "value": "PC15",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 84,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"E2_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "E2_STEP_PIN": {
+      "value": "PE2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 106,
+      "overrides": []
+    },
+    "EXP1_01_PIN": {
+      "value": "PC9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 162,
+      "overrides": []
+    },
+    "EXP1_02_PIN": {
+      "value": "PA8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 163,
+      "overrides": []
+    },
+    "EXP1_03_PIN": {
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 164,
+      "overrides": []
+    },
+    "EXP1_04_PIN": {
+      "value": "PD2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 165,
+      "overrides": []
+    },
+    "EXP1_05_PIN": {
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 166,
+      "overrides": []
+    },
+    "EXP1_06_PIN": {
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 167,
+      "overrides": []
+    },
+    "EXP1_07_PIN": {
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 168,
+      "overrides": []
+    },
+    "EXP1_08_PIN": {
+      "value": "PD1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 169,
+      "overrides": []
+    },
+    "EXP2_01_PIN": {
+      "value": "PA6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 171,
+      "overrides": []
+    },
+    "EXP2_02_PIN": {
+      "value": "PA5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 172,
+      "overrides": []
+    },
+    "EXP2_03_PIN": {
+      "value": "PC6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 173,
+      "overrides": []
+    },
+    "EXP2_04_PIN": {
+      "value": "PA4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 174,
+      "overrides": []
+    },
+    "EXP2_05_PIN": {
+      "value": "PC7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 175,
+      "overrides": []
+    },
+    "EXP2_06_PIN": {
+      "value": "PA7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 176,
+      "overrides": []
+    },
+    "EXP2_07_PIN": {
+      "value": "PB10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 177,
+      "overrides": []
+    },
+    "EXP2_08_PIN": {
+      "value": "-1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 178,
+      "overrides": []
+    },
+    "FAN0_PIN": {
+      "value": "PA13",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 31,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB0",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 138,
+          "reason": "not applied; enclosing: #ifndef FAN0_PIN (pins_FYSETC_S6_common.h:137)"
+        }
+      ]
+    },
+    "FAN1_PIN": {
+      "value": "PA14",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 32,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB1",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 141,
+          "reason": "not applied; enclosing: #ifndef FAN1_PIN (pins_FYSETC_S6_common.h:140)"
+        }
+      ]
+    },
+    "FAN2_PIN": {
+      "value": "PB2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 143,
+      "overrides": []
+    },
+    "FIL_RUNOUT_PIN": {
+      "value": "PA1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 75,
+      "overrides": []
+    },
+    "HEATER_0_PIN": {
+      "value": "PB15",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 60,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 125,
+          "reason": "not applied; enclosing: #ifndef HEATER_0_PIN (pins_FYSETC_S6_common.h:124)"
+        }
+      ]
+    },
+    "HEATER_1_PIN": {
+      "value": "PC8",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 61,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB4",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 128,
+          "reason": "not applied; enclosing: #ifndef HEATER_1_PIN (pins_FYSETC_S6_common.h:127)"
+        }
+      ]
+    },
+    "HEATER_2_PIN": {
+      "value": "PB3",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 62,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB15",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 131,
+          "reason": "not applied; enclosing: #ifndef HEATER_2_PIN (pins_FYSETC_S6_common.h:130)"
+        }
+      ]
+    },
+    "HEATER_BED_PIN": {
+      "value": "PB4",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 63,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PC8",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 134,
+          "reason": "not applied; enclosing: #ifndef HEATER_BED_PIN (pins_FYSETC_S6_common.h:133)"
+        }
+      ]
+    },
+    "I2C_EEPROM": {
+      "value": "",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 35,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 41,
+          "reason": "not applied; enclosing: #if NO_EEPROM_SELECTED (pins_FYSETC_S6_common.h:40)"
+        }
+      ]
+    },
+    "MARLIN_EEPROM_SIZE": {
+      "value": "0x1000U",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 50,
+      "overrides": [
+        {
+          "value": "0x1000U",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 41,
+          "how": "identical redefinition (same tokens; no warning)"
+        }
+      ]
+    },
+    "RGB_LED_B_PIN": {
+      "value": "PB7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 289,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_08_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 255,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_B_PIN (pins_FYSETC_S6_common.h:254)"
+        }
+      ]
+    },
+    "RGB_LED_G_PIN": {
+      "value": "PB5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 286,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_07_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 252,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_G_PIN (pins_FYSETC_S6_common.h:251)"
+        }
+      ]
+    },
+    "RGB_LED_R_PIN": {
+      "value": "PB6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 283,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_06_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 249,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_R_PIN (pins_FYSETC_S6_common.h:248)"
+        }
+      ]
+    },
+    "RGB_LED_W_PIN": {
+      "value": "-1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 292,
+      "overrides": []
+    },
+    "SD_DETECT_PIN": {
+      "value": "PB10",
+      "raw": "EXP2_07_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 188,
+      "overrides": []
+    },
+    "SD_MISO_PIN": {
+      "value": "PA6",
+      "raw": "EXP2_01_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 184,
+      "overrides": []
+    },
+    "SD_MOSI_PIN": {
+      "value": "PA7",
+      "raw": "EXP2_06_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 185,
+      "overrides": []
+    },
+    "SD_SCK_PIN": {
+      "value": "PA5",
+      "raw": "EXP2_02_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 183,
+      "overrides": []
+    },
+    "SD_SS_PIN": {
+      "value": "PA4",
+      "raw": "EXP2_04_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 187,
+      "overrides": []
+    },
+    "SERVO0_PIN": {
+      "value": "PA2",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 74,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PA3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 57,
+          "reason": "not applied; enclosing: #ifndef SERVO0_PIN (pins_FYSETC_S6_common.h:56)"
+        }
+      ]
+    },
+    "STEP_TIMER": {
+      "value": "10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 35,
+      "overrides": []
+    },
+    "TEMP_0_PIN": {
+      "value": "PC0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 114,
+      "overrides": []
+    },
+    "TEMP_1_PIN": {
+      "value": "PC1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 115,
+      "overrides": []
+    },
+    "TEMP_2_PIN": {
+      "value": "PC2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 116,
+      "overrides": []
+    },
+    "TEMP_3_PIN": {
+      "value": "PC3",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 27,
+      "overrides": []
+    },
+    "TEMP_4_PIN": {
+      "value": "PB1",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 28,
+      "overrides": []
+    },
+    "TEMP_BED_PIN": {
+      "value": "PB0",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 29,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PC3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 118,
+          "reason": "not applied; enclosing: #ifndef TEMP_BED_PIN (pins_FYSETC_S6_common.h:117)"
+        }
+      ]
+    },
+    "TMC_SPI_MISO": {
+      "value": "PE13",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 95,
+      "overrides": []
+    },
+    "TMC_SPI_MOSI": {
+      "value": "PE14",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 92,
+      "overrides": []
+    },
+    "TMC_SPI_SCK": {
+      "value": "PE12",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 98,
+      "overrides": []
+    },
+    "TMC_USE_SW_SPI": {
+      "value": "",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 90,
+      "overrides": []
+    },
+    "X2_CS_PIN": {
+      "value": "PA15",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 50,
+      "overrides": []
+    },
+    "X2_DIR_PIN": {
+      "value": "PC4",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 48,
+      "overrides": []
+    },
+    "X2_ENABLE_PIN": {
+      "value": "PE8",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 49,
+      "overrides": []
+    },
+    "X2_SERIAL_TX_PIN": {
+      "value": "PA15",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 78,
+      "overrides": []
+    },
+    "X2_STEP_PIN": {
+      "value": "PD12",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 47,
+      "overrides": []
+    },
+    "X_CS_PIN": {
+      "value": "PE7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 84,
+      "overrides": []
+    },
+    "X_DIR_PIN": {
+      "value": "PE10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 82,
+      "overrides": []
+    },
+    "X_ENABLE_PIN": {
+      "value": "PE12",
+      "file": "pins_FYSETC_S6.h",
+      "line": 29,
+      "overrides": [
+        {
+          "value": "PE9",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 68,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"X_ENABLE_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "X_MAX_PIN": {
+      "value": "PA1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 64,
+      "overrides": []
+    },
+    "X_MIN_PIN": {
+      "value": "PB14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 63,
+      "overrides": []
+    },
+    "X_SERIAL_RX_PIN": {
+      "value": "PE8",
+      "file": "pins_FYSETC_S6.h",
+      "line": 36,
+      "overrides": []
+    },
+    "X_SERIAL_TX_PIN": {
+      "value": "PE9",
+      "file": "pins_FYSETC_S6.h",
+      "line": 35,
+      "overrides": [
+        {
+          "value": "PE7",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 77,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"X_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "X_STEP_PIN": {
+      "value": "PE11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 81,
+      "overrides": []
+    },
+    "Y_CS_PIN": {
+      "value": "PE15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 89,
+      "overrides": []
+    },
+    "Y_DIR_PIN": {
+      "value": "PB12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 87,
+      "overrides": []
+    },
+    "Y_ENABLE_PIN": {
+      "value": "PD9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 88,
+      "overrides": []
+    },
+    "Y_MAX_PIN": {
+      "value": "PA2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 66,
+      "overrides": []
+    },
+    "Y_MIN_PIN": {
+      "value": "PB13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 65,
+      "overrides": []
+    },
+    "Y_SERIAL_RX_PIN": {
+      "value": "PE13",
+      "file": "pins_FYSETC_S6.h",
+      "line": 38,
+      "overrides": []
+    },
+    "Y_SERIAL_TX_PIN": {
+      "value": "PE14",
+      "file": "pins_FYSETC_S6.h",
+      "line": 37,
+      "overrides": [
+        {
+          "value": "PE15",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 79,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"Y_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "Y_STEP_PIN": {
+      "value": "PD8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 86,
+      "overrides": []
+    },
+    "Z2_CS_PIN": {
+      "value": "PD11",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 55,
+      "overrides": []
+    },
+    "Z2_DIR_PIN": {
+      "value": "PE0",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 53,
+      "overrides": []
+    },
+    "Z2_ENABLE_PIN": {
+      "value": "PC5",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 54,
+      "overrides": []
+    },
+    "Z2_SERIAL_TX_PIN": {
+      "value": "PD11",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 81,
+      "overrides": []
+    },
+    "Z2_STEP_PIN": {
+      "value": "PE1",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 52,
+      "overrides": []
+    },
+    "Z_CS_PIN": {
+      "value": "PD10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 94,
+      "overrides": []
+    },
+    "Z_DIR_PIN": {
+      "value": "PD13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 92,
+      "overrides": []
+    },
+    "Z_ENABLE_PIN": {
+      "value": "PD15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 93,
+      "overrides": []
+    },
+    "Z_MAX_PIN": {
+      "value": "PA3",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 68,
+      "overrides": []
+    },
+    "Z_MIN_PIN": {
+      "value": "PA0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 67,
+      "overrides": []
+    },
+    "Z_SERIAL_RX_PIN": {
+      "value": "PD12",
+      "file": "pins_FYSETC_S6.h",
+      "line": 40,
+      "overrides": []
+    },
+    "Z_SERIAL_TX_PIN": {
+      "value": "PD11",
+      "file": "pins_FYSETC_S6.h",
+      "line": 39,
+      "overrides": [
+        {
+          "value": "PD10",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 80,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"Z_SERIAL_TX_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "Z_STEP_PIN": {
+      "value": "PD14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 91,
+      "overrides": []
+    }
+  },
+  "config_b_default": {
+    "BOARD_INFO_NAME": {
+      "value": "\"FYSETC S6\"",
+      "file": "pins_FYSETC_S6.h",
+      "line": 24,
+      "overrides": [
+        {
+          "value": "\"FYSETC SPIDER V22\"",
+          "file": "pins_FYSETC_SPIDER_V2_2.h",
+          "line": 24,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"BOARD_INFO_NAME\" redefined' warning; later definition takes effect)"
+        }
+      ],
+      "not_applied": [
+        {
+          "value": "\"FYSETC SPIDER\"",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 25,
+          "reason": "not applied; enclosing: #ifndef BOARD_INFO_NAME (pins_FYSETC_SPIDER.h:24)"
+        }
+      ]
+    },
+    "DEFAULT_MACHINE_NAME": {
+      "value": "\"FYSETC S6\"",
+      "raw": "BOARD_INFO_NAME",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 25,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "BOARD_INFO_NAME",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 28,
+          "reason": "not applied; enclosing: #ifndef DEFAULT_MACHINE_NAME (pins_FYSETC_SPIDER.h:27)"
+        },
+        {
+          "value": "BOARD_INFO_NAME",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 31,
+          "reason": "not applied; enclosing: #ifndef DEFAULT_MACHINE_NAME (pins_FYSETC_S6_common.h:30)"
+        }
+      ]
+    },
+    "E0_CS_PIN": {
+      "value": "PD7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 99,
+      "overrides": []
+    },
+    "E0_DIR_PIN": {
+      "value": "PD6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 97,
+      "overrides": []
+    },
+    "E0_ENABLE_PIN": {
+      "value": "PD4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 98,
+      "overrides": []
+    },
+    "E0_STEP_PIN": {
+      "value": "PD5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 96,
+      "overrides": []
+    },
+    "E1_CS_PIN": {
+      "value": "PC14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 104,
+      "overrides": []
+    },
+    "E1_DIR_PIN": {
+      "value": "PC13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 102,
+      "overrides": []
+    },
+    "E1_ENABLE_PIN": {
+      "value": "PE5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 103,
+      "overrides": []
+    },
+    "E1_STEP_PIN": {
+      "value": "PE6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 101,
+      "overrides": []
+    },
+    "E2_CS_PIN": {
+      "value": "PC15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 109,
+      "overrides": []
+    },
+    "E2_DIR_PIN": {
+      "value": "PE4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 107,
+      "overrides": []
+    },
+    "E2_ENABLE_PIN": {
+      "value": "PE3",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 108,
+      "overrides": []
+    },
+    "E2_STEP_PIN": {
+      "value": "PE2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 106,
+      "overrides": []
+    },
+    "EXP1_01_PIN": {
+      "value": "PC9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 162,
+      "overrides": []
+    },
+    "EXP1_02_PIN": {
+      "value": "PA8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 163,
+      "overrides": []
+    },
+    "EXP1_03_PIN": {
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 164,
+      "overrides": []
+    },
+    "EXP1_04_PIN": {
+      "value": "PD2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 165,
+      "overrides": []
+    },
+    "EXP1_05_PIN": {
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 166,
+      "overrides": []
+    },
+    "EXP1_06_PIN": {
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 167,
+      "overrides": []
+    },
+    "EXP1_07_PIN": {
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 168,
+      "overrides": []
+    },
+    "EXP1_08_PIN": {
+      "value": "PD1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 169,
+      "overrides": []
+    },
+    "EXP2_01_PIN": {
+      "value": "PA6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 171,
+      "overrides": []
+    },
+    "EXP2_02_PIN": {
+      "value": "PA5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 172,
+      "overrides": []
+    },
+    "EXP2_03_PIN": {
+      "value": "PC6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 173,
+      "overrides": []
+    },
+    "EXP2_04_PIN": {
+      "value": "PA4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 174,
+      "overrides": []
+    },
+    "EXP2_05_PIN": {
+      "value": "PC7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 175,
+      "overrides": []
+    },
+    "EXP2_06_PIN": {
+      "value": "PA7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 176,
+      "overrides": []
+    },
+    "EXP2_07_PIN": {
+      "value": "PB10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 177,
+      "overrides": []
+    },
+    "EXP2_08_PIN": {
+      "value": "-1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 178,
+      "overrides": []
+    },
+    "FAN0_PIN": {
+      "value": "PA13",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 31,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB0",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 138,
+          "reason": "not applied; enclosing: #ifndef FAN0_PIN (pins_FYSETC_S6_common.h:137)"
+        }
+      ]
+    },
+    "FAN1_PIN": {
+      "value": "PA14",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 32,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB1",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 141,
+          "reason": "not applied; enclosing: #ifndef FAN1_PIN (pins_FYSETC_S6_common.h:140)"
+        }
+      ]
+    },
+    "FAN2_PIN": {
+      "value": "PB2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 143,
+      "overrides": []
+    },
+    "FIL_RUNOUT_PIN": {
+      "value": "PA1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 75,
+      "overrides": []
+    },
+    "HEATER_0_PIN": {
+      "value": "PB15",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 60,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 125,
+          "reason": "not applied; enclosing: #ifndef HEATER_0_PIN (pins_FYSETC_S6_common.h:124)"
+        }
+      ]
+    },
+    "HEATER_1_PIN": {
+      "value": "PC8",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 61,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB4",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 128,
+          "reason": "not applied; enclosing: #ifndef HEATER_1_PIN (pins_FYSETC_S6_common.h:127)"
+        }
+      ]
+    },
+    "HEATER_2_PIN": {
+      "value": "PB3",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 62,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PB15",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 131,
+          "reason": "not applied; enclosing: #ifndef HEATER_2_PIN (pins_FYSETC_S6_common.h:130)"
+        }
+      ]
+    },
+    "HEATER_BED_PIN": {
+      "value": "PB4",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 63,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PC8",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 134,
+          "reason": "not applied; enclosing: #ifndef HEATER_BED_PIN (pins_FYSETC_S6_common.h:133)"
+        }
+      ]
+    },
+    "I2C_EEPROM": {
+      "value": "",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 35,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 41,
+          "reason": "not applied; enclosing: #if NO_EEPROM_SELECTED (pins_FYSETC_S6_common.h:40)"
+        }
+      ]
+    },
+    "MARLIN_EEPROM_SIZE": {
+      "value": "0x1000U",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 50,
+      "overrides": [
+        {
+          "value": "0x1000U",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 41,
+          "how": "identical redefinition (same tokens; no warning)"
+        }
+      ]
+    },
+    "RGB_LED_B_PIN": {
+      "value": "PB7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 289,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_08_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 255,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_B_PIN (pins_FYSETC_S6_common.h:254)"
+        }
+      ]
+    },
+    "RGB_LED_G_PIN": {
+      "value": "PB5",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 286,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_07_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 252,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_G_PIN (pins_FYSETC_S6_common.h:251)"
+        }
+      ]
+    },
+    "RGB_LED_R_PIN": {
+      "value": "PB6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 283,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "EXP1_06_PIN",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 249,
+          "reason": "not applied; enclosing: #if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213); #if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227); #if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239); #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247); #ifndef RGB_LED_R_PIN (pins_FYSETC_S6_common.h:248)"
+        }
+      ]
+    },
+    "RGB_LED_W_PIN": {
+      "value": "-1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 292,
+      "overrides": []
+    },
+    "SD_DETECT_PIN": {
+      "value": "PB10",
+      "raw": "EXP2_07_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 188,
+      "overrides": []
+    },
+    "SD_MISO_PIN": {
+      "value": "PA6",
+      "raw": "EXP2_01_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 184,
+      "overrides": []
+    },
+    "SD_MOSI_PIN": {
+      "value": "PA7",
+      "raw": "EXP2_06_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 185,
+      "overrides": []
+    },
+    "SD_SCK_PIN": {
+      "value": "PA5",
+      "raw": "EXP2_02_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 183,
+      "overrides": []
+    },
+    "SD_SS_PIN": {
+      "value": "PA4",
+      "raw": "EXP2_04_PIN",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 187,
+      "overrides": []
+    },
+    "SERVO0_PIN": {
+      "value": "PA2",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 74,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PA3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 57,
+          "reason": "not applied; enclosing: #ifndef SERVO0_PIN (pins_FYSETC_S6_common.h:56)"
+        }
+      ]
+    },
+    "STEP_TIMER": {
+      "value": "10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 35,
+      "overrides": []
+    },
+    "TEMP_0_PIN": {
+      "value": "PC0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 114,
+      "overrides": []
+    },
+    "TEMP_1_PIN": {
+      "value": "PC1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 115,
+      "overrides": []
+    },
+    "TEMP_2_PIN": {
+      "value": "PC2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 116,
+      "overrides": []
+    },
+    "TEMP_3_PIN": {
+      "value": "PC3",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 27,
+      "overrides": []
+    },
+    "TEMP_4_PIN": {
+      "value": "PB1",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 28,
+      "overrides": []
+    },
+    "TEMP_BED_PIN": {
+      "value": "PB0",
+      "file": "pins_FYSETC_SPIDER_V2_2.h",
+      "line": 29,
+      "overrides": [],
+      "not_applied": [
+        {
+          "value": "PC3",
+          "file": "pins_FYSETC_S6_common.h",
+          "line": 118,
+          "reason": "not applied; enclosing: #ifndef TEMP_BED_PIN (pins_FYSETC_S6_common.h:117)"
+        }
+      ]
+    },
+    "TMC_SPI_MISO": {
+      "value": "PE13",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 95,
+      "overrides": []
+    },
+    "TMC_SPI_MOSI": {
+      "value": "PE14",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 92,
+      "overrides": []
+    },
+    "TMC_SPI_SCK": {
+      "value": "PE12",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 98,
+      "overrides": []
+    },
+    "TMC_USE_SW_SPI": {
+      "value": "",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 90,
+      "overrides": []
+    },
+    "X2_CS_PIN": {
+      "value": "PA15",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 50,
+      "overrides": []
+    },
+    "X2_DIR_PIN": {
+      "value": "PC4",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 48,
+      "overrides": []
+    },
+    "X2_ENABLE_PIN": {
+      "value": "PE8",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 49,
+      "overrides": []
+    },
+    "X2_STEP_PIN": {
+      "value": "PD12",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 47,
+      "overrides": []
+    },
+    "X_CS_PIN": {
+      "value": "PE7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 84,
+      "overrides": []
+    },
+    "X_DIR_PIN": {
+      "value": "PE10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 82,
+      "overrides": []
+    },
+    "X_ENABLE_PIN": {
+      "value": "PE12",
+      "file": "pins_FYSETC_S6.h",
+      "line": 29,
+      "overrides": [
+        {
+          "value": "PE9",
+          "file": "pins_FYSETC_SPIDER.h",
+          "line": 68,
+          "how": "replaced by later unguarded #define without #undef (GCC: '\"X_ENABLE_PIN\" redefined' warning; later definition takes effect)"
+        }
+      ]
+    },
+    "X_MAX_PIN": {
+      "value": "PA1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 64,
+      "overrides": []
+    },
+    "X_MIN_PIN": {
+      "value": "PB14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 63,
+      "overrides": []
+    },
+    "X_STEP_PIN": {
+      "value": "PE11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 81,
+      "overrides": []
+    },
+    "Y_CS_PIN": {
+      "value": "PE15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 89,
+      "overrides": []
+    },
+    "Y_DIR_PIN": {
+      "value": "PB12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 87,
+      "overrides": []
+    },
+    "Y_ENABLE_PIN": {
+      "value": "PD9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 88,
+      "overrides": []
+    },
+    "Y_MAX_PIN": {
+      "value": "PA2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 66,
+      "overrides": []
+    },
+    "Y_MIN_PIN": {
+      "value": "PB13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 65,
+      "overrides": []
+    },
+    "Y_STEP_PIN": {
+      "value": "PD8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 86,
+      "overrides": []
+    },
+    "Z2_CS_PIN": {
+      "value": "PD11",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 55,
+      "overrides": []
+    },
+    "Z2_DIR_PIN": {
+      "value": "PE0",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 53,
+      "overrides": []
+    },
+    "Z2_ENABLE_PIN": {
+      "value": "PC5",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 54,
+      "overrides": []
+    },
+    "Z2_STEP_PIN": {
+      "value": "PE1",
+      "file": "pins_FYSETC_SPIDER.h",
+      "line": 52,
+      "overrides": []
+    },
+    "Z_CS_PIN": {
+      "value": "PD10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 94,
+      "overrides": []
+    },
+    "Z_DIR_PIN": {
+      "value": "PD13",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 92,
+      "overrides": []
+    },
+    "Z_ENABLE_PIN": {
+      "value": "PD15",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 93,
+      "overrides": []
+    },
+    "Z_MAX_PIN": {
+      "value": "PA3",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 68,
+      "overrides": []
+    },
+    "Z_MIN_PIN": {
+      "value": "PA0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 67,
+      "overrides": []
+    },
+    "Z_STEP_PIN": {
+      "value": "PD14",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 91,
+      "overrides": []
+    }
+  },
+  "variant_c_no_eeprom_settings_diff_vs_b": {
+    "removed": [
+      "I2C_EEPROM",
+      "MARLIN_EEPROM_SIZE"
+    ],
+    "added": [],
+    "explanation": "pins.h:65 NO_EEPROM_SELECTED = (ENABLED(EEPROM_SETTINGS) && NONE(I2C_EEPROM, ...)); without EEPROM_SETTINGS it is 0, so pins_FYSETC_SPIDER.h:34-35 does not define I2C_EEPROM and neither MARLIN_EEPROM_SIZE definition (pins_FYSETC_SPIDER.h:41, pins_FYSETC_S6_common.h:50) is reached. All other macros identical to (b)."
+  },
+  "conditional_definitions_inactive_in_a": [
+    {
+      "name": "FLASH_EEPROM_LEVELING",
+      "value": "",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 48,
+      "conditions": [
+        "#if ENABLED(FLASH_EEPROM_EMULATION) (pins_FYSETC_S6_common.h:45)"
+      ]
+    },
+    {
+      "name": "BTN_EN1",
+      "value": "PC9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 196,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_01_PIN"
+    },
+    {
+      "name": "BTN_EN2",
+      "value": "PD1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 197,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_08_PIN"
+    },
+    {
+      "name": "BTN_ENC",
+      "value": "PA8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 198,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_02_PIN"
+    },
+    {
+      "name": "BEEPER_PIN",
+      "value": "PC6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 200,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP2_03_PIN"
+    },
+    {
+      "name": "LCD_PINS_DC",
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 202,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_06_PIN"
+    },
+    {
+      "name": "LCD_PINS_RS",
+      "value": "PC7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 203,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP2_05_PIN"
+    },
+    {
+      "name": "DOGLCD_CS",
+      "value": "PD2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 204,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_04_PIN"
+    },
+    {
+      "name": "DOGLCD_MOSI",
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 205,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_05_PIN"
+    },
+    {
+      "name": "DOGLCD_SCK",
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 206,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_03_PIN"
+    },
+    {
+      "name": "DOGLCD_A0",
+      "value": "LCD_PINS_DC",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 207,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ]
+    },
+    {
+      "name": "FORCE_SOFT_SPI",
+      "value": "",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 208,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ]
+    },
+    {
+      "name": "KILL_PIN",
+      "value": "-1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 210,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ]
+    },
+    {
+      "name": "BOARD_NEOPIXEL_PIN",
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 211,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194)"
+      ],
+      "raw": "EXP1_07_PIN"
+    },
+    {
+      "name": "BEEPER_PIN",
+      "value": "PC9",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 215,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)"
+      ],
+      "raw": "EXP1_01_PIN"
+    },
+    {
+      "name": "BTN_ENC",
+      "value": "PA8",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 216,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)"
+      ],
+      "raw": "EXP1_02_PIN"
+    },
+    {
+      "name": "LCD_PINS_RS",
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 219,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218)"
+      ],
+      "raw": "EXP1_07_PIN"
+    },
+    {
+      "name": "BTN_EN1",
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 221,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218)"
+      ],
+      "raw": "EXP1_03_PIN"
+    },
+    {
+      "name": "BTN_EN2",
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 222,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218)"
+      ],
+      "raw": "EXP1_05_PIN"
+    },
+    {
+      "name": "LCD_PINS_EN",
+      "value": "PD1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 224,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218)"
+      ],
+      "raw": "EXP1_08_PIN"
+    },
+    {
+      "name": "LCD_PINS_D4",
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 225,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218)"
+      ],
+      "raw": "EXP1_06_PIN"
+    },
+    {
+      "name": "LCD_PINS_RS",
+      "value": "PD2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 229,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP1_04_PIN"
+    },
+    {
+      "name": "BTN_EN1",
+      "value": "PC6",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 231,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP2_03_PIN"
+    },
+    {
+      "name": "BTN_EN2",
+      "value": "PC7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 232,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP2_05_PIN"
+    },
+    {
+      "name": "LCD_SDSS_PIN",
+      "value": "PA4",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 234,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP2_04_PIN"
+    },
+    {
+      "name": "LCD_PINS_EN",
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 236,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP1_03_PIN"
+    },
+    {
+      "name": "LCD_PINS_D4",
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 237,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)"
+      ],
+      "raw": "EXP1_05_PIN"
+    },
+    {
+      "name": "DOGLCD_CS",
+      "value": "PC11",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 241,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239)"
+      ],
+      "raw": "EXP1_03_PIN"
+    },
+    {
+      "name": "DOGLCD_A0",
+      "value": "PD2",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 242,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239)"
+      ],
+      "raw": "EXP1_04_PIN"
+    },
+    {
+      "name": "LCD_BACKLIGHT_PIN",
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 244,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239)",
+        "#if ENABLED(FYSETC_GENERIC_12864_1_1) (pins_FYSETC_S6_common.h:243)"
+      ],
+      "raw": "EXP1_07_PIN"
+    },
+    {
+      "name": "LCD_RESET_PIN",
+      "value": "PC10",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 246,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239)"
+      ],
+      "raw": "EXP1_05_PIN"
+    },
+    {
+      "name": "NEOPIXEL_PIN",
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 258,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if ENABLED(FYSETC_MINI_12864) (pins_FYSETC_S6_common.h:239)",
+        "#if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0) (pins_FYSETC_S6_common.h:247) / #elif ENABLED(FYSETC_MINI_12864_2_1) (pins_FYSETC_S6_common.h:257)"
+      ],
+      "raw": "EXP1_06_PIN"
+    },
+    {
+      "name": "LCD_PINS_D5",
+      "value": "PC12",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 263,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if IS_ULTIPANEL (pins_FYSETC_S6_common.h:262)"
+      ],
+      "raw": "EXP1_06_PIN"
+    },
+    {
+      "name": "LCD_PINS_D6",
+      "value": "PD0",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 264,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if IS_ULTIPANEL (pins_FYSETC_S6_common.h:262)"
+      ],
+      "raw": "EXP1_07_PIN"
+    },
+    {
+      "name": "LCD_PINS_D7",
+      "value": "PD1",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 265,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if IS_ULTIPANEL (pins_FYSETC_S6_common.h:262)"
+      ],
+      "raw": "EXP1_08_PIN"
+    },
+    {
+      "name": "BTN_ENC_EN",
+      "value": "LCD_PINS_D7",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 267,
+      "conditions": [
+        "#if ENABLED(FYSETC_242_OLED_12864) (pins_FYSETC_S6_common.h:194) / #elif HAS_WIRED_LCD (pins_FYSETC_S6_common.h:213)",
+        "#if ENABLED(CR10_STOCKDISPLAY) (pins_FYSETC_S6_common.h:218) / #else (pins_FYSETC_S6_common.h:227)",
+        "#if IS_ULTIPANEL (pins_FYSETC_S6_common.h:262)",
+        "#if ENABLED(REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER) (pins_FYSETC_S6_common.h:266)"
+      ]
+    },
+    {
+      "name": "BOARD_ST7920_DELAY_1",
+      "value": "96",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 277,
+      "conditions": [
+        "#if IS_U8GLIB_ST7920 (pins_FYSETC_S6_common.h:276)"
+      ]
+    },
+    {
+      "name": "BOARD_ST7920_DELAY_2",
+      "value": "48",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 278,
+      "conditions": [
+        "#if IS_U8GLIB_ST7920 (pins_FYSETC_S6_common.h:276)"
+      ]
+    },
+    {
+      "name": "BOARD_ST7920_DELAY_3",
+      "value": "640",
+      "file": "pins_FYSETC_S6_common.h",
+      "line": 279,
+      "conditions": [
+        "#if IS_U8GLIB_ST7920 (pins_FYSETC_S6_common.h:276)"
+      ]
+    }
+  ],
+  "uart_definitions_inactive_in_b": [
+    "E0_SERIAL_RX_PIN",
+    "E0_SERIAL_TX_PIN",
+    "E1_SERIAL_RX_PIN",
+    "E1_SERIAL_TX_PIN",
+    "E2_SERIAL_RX_PIN",
+    "E2_SERIAL_TX_PIN",
+    "X2_SERIAL_TX_PIN",
+    "X_SERIAL_RX_PIN",
+    "X_SERIAL_TX_PIN",
+    "Y_SERIAL_RX_PIN",
+    "Y_SERIAL_TX_PIN",
+    "Z2_SERIAL_TX_PIN",
+    "Z_SERIAL_RX_PIN",
+    "Z_SERIAL_TX_PIN"
+  ],
+  "same_pin_multiple_macros_a": {
+    "PA1": [
+      "FIL_RUNOUT_PIN (pins_FYSETC_S6_common.h:75)",
+      "X_MAX_PIN (pins_FYSETC_S6_common.h:64)"
+    ],
+    "PA15": [
+      "E0_SERIAL_RX_PIN (pins_FYSETC_S6.h:42)",
+      "X2_CS_PIN (pins_FYSETC_SPIDER.h:50)",
+      "X2_SERIAL_TX_PIN (pins_FYSETC_SPIDER.h:78)"
+    ],
+    "PA2": [
+      "SERVO0_PIN (pins_FYSETC_SPIDER.h:74)",
+      "Y_MAX_PIN (pins_FYSETC_S6_common.h:66)"
+    ],
+    "PC4": [
+      "E1_SERIAL_TX_PIN (pins_FYSETC_S6.h:43)",
+      "X2_DIR_PIN (pins_FYSETC_SPIDER.h:48)"
+    ],
+    "PC5": [
+      "E1_SERIAL_RX_PIN (pins_FYSETC_S6.h:44)",
+      "Z2_ENABLE_PIN (pins_FYSETC_SPIDER.h:54)"
+    ],
+    "PD11": [
+      "Z2_CS_PIN (pins_FYSETC_SPIDER.h:55)",
+      "Z2_SERIAL_TX_PIN (pins_FYSETC_SPIDER.h:81)",
+      "Z_SERIAL_TX_PIN (pins_FYSETC_S6.h:39)"
+    ],
+    "PD12": [
+      "X2_STEP_PIN (pins_FYSETC_SPIDER.h:47)",
+      "Z_SERIAL_RX_PIN (pins_FYSETC_S6.h:40)"
+    ],
+    "PE0": [
+      "E2_SERIAL_RX_PIN (pins_FYSETC_S6.h:46)",
+      "Z2_DIR_PIN (pins_FYSETC_SPIDER.h:53)"
+    ],
+    "PE1": [
+      "E2_SERIAL_TX_PIN (pins_FYSETC_S6.h:45)",
+      "Z2_STEP_PIN (pins_FYSETC_SPIDER.h:52)"
+    ],
+    "PE12": [
+      "TMC_SPI_SCK (pins_FYSETC_SPIDER.h:98)",
+      "X_ENABLE_PIN (pins_FYSETC_S6.h:29)"
+    ],
+    "PE13": [
+      "TMC_SPI_MISO (pins_FYSETC_SPIDER.h:95)",
+      "Y_SERIAL_RX_PIN (pins_FYSETC_S6.h:38)"
+    ],
+    "PE14": [
+      "TMC_SPI_MOSI (pins_FYSETC_SPIDER.h:92)",
+      "Y_SERIAL_TX_PIN (pins_FYSETC_S6.h:37)"
+    ],
+    "PE8": [
+      "X2_ENABLE_PIN (pins_FYSETC_SPIDER.h:49)",
+      "X_SERIAL_RX_PIN (pins_FYSETC_S6.h:36)"
+    ]
+  },
+  "same_pin_multiple_macros_b": {
+    "PA1": [
+      "FIL_RUNOUT_PIN (pins_FYSETC_S6_common.h:75)",
+      "X_MAX_PIN (pins_FYSETC_S6_common.h:64)"
+    ],
+    "PA2": [
+      "SERVO0_PIN (pins_FYSETC_SPIDER.h:74)",
+      "Y_MAX_PIN (pins_FYSETC_S6_common.h:66)"
+    ],
+    "PE12": [
+      "TMC_SPI_SCK (pins_FYSETC_SPIDER.h:98)",
+      "X_ENABLE_PIN (pins_FYSETC_S6.h:29)"
+    ]
+  },
+  "not_defined_by_these_files": [
+    "Y2_* (no Y2 stepper pins)",
+    "E3_*, E4_* (pins_FYSETC_SPIDER.h:101-102 #error if HOTENDS > 3 || E_STEPPERS > 3)",
+    "X2_SERIAL_RX_PIN, Z2_SERIAL_RX_PIN",
+    "X_STOP_PIN/Y_STOP_PIN/Z_STOP_PIN",
+    "Z_MIN_PROBE_PIN",
+    "any *_DIAG_PIN",
+    "FIL_RUNOUT2_PIN and higher",
+    "SERVO1_PIN and higher",
+    "TEMP_CHAMBER/TEMP_PROBE etc.",
+    "FAN3_PIN and higher",
+    "CONTROLLER_FAN_PIN",
+    "E0_AUTO_FAN_PIN / any *_AUTO_FAN_PIN",
+    "TMC_BAUD_RATE",
+    "SDSS",
+    "SDIO_SUPPORT / any SDIO pins",
+    "SERIAL_PORT / any serial port setting",
+    "I2C SDA/SCL pins (e.g. I2C_SDA_PIN/I2C_SCL_PIN) and any EEPROM address/bus macro",
+    "NEOPIXEL_PIN / BOARD_NEOPIXEL_PIN (only inside LCD-conditional blocks, see conditional_definitions_inactive_in_a)",
+    "LED_PIN, PS_ON_PIN, KILL_PIN (commented out at pins_FYSETC_S6_common.h:148-150; KILL_PIN -1 only with FYSETC_242_OLED_12864 at :210)"
+  ],
+  "preprocessor": {
+    "gcc": "gcc 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+    "clang": "Ubuntu clang 18.1.3",
+    "commands": [
+      "gcc -E -dM -undef -std=gnu11 -I pp test_<cfg>.c > dM_<cfg>.txt",
+      "gcc -E -dD -undef -std=gnu11 -I pp test_<cfg>.c > dD_<cfg>.txt   (line markers give file:line of every #define)",
+      "clang -E -dM -undef -std=gnu11 -I pp test_<cfg>.c > clang_dM_<cfg>.txt",
+      "python3 -I extract.py ; python3 -I build_json.py"
+    ],
+    "script": "run_cpp.sh",
+    "tree": "pp/core/boards.h, pp/pins/pins.h, pp/pins/stm32f4/{4 board files} are byte-identical copies (sha256 checked); pp/core/macros.h, pp/pins/stm32f4/env_validate.h, pp/pins/pins_lcd.h, pp/pins/pins_postprocess.h are stubs",
+    "stubs": {
+      "macros.h": "my own implementation of DO()/MB support and ENABLED/DISABLED/ANY/NONE/ALL (ENABLED(X) true iff X is defined empty, 1, 0x1 or true); self-tested in test_common_tail.inc",
+      "env_validate.h": "empty (Marlin's file only validates the build target)",
+      "pins_lcd.h, pins_postprocess.h": "empty: not in provided sources. Real Marlin post-processing may derive or #undef further macros after the board chain; that is out of scope here"
+    },
+    "selection_check": "test_common_tail.inc asserts MB(FYSETC_SPIDER_V2_2) is true and MB(FYSETC_SPIDER/FYSETC_S6/FYSETC_S6_V2_0) are false; -dD line markers confirm pins.h:756 included pins_FYSETC_SPIDER_V2_2.h",
+    "gcc_warnings_a": 8,
+    "gcc_warnings_b": 2,
+    "warnings_text": "'X redefined' for BOARD_INFO_NAME (S6.h:24 vs V2_2.h:24) and X_ENABLE_PIN (S6.h:29 vs SPIDER.h:68) in both configs; in (a) also X/Y/Z/E0/E1/E2_SERIAL_TX_PIN (S6.h:35/37/39/41/43/45 vs SPIDER.h:77/79/80/82/83/84). See stderr_dD_*.txt. Clang reports the same 8 / 2 warnings.",
+    "clang_vs_gcc_board_macros_mismatch": []
+  },
+  "manual_vs_preprocessor_diffs": [],
+  "preprocessor_agrees": true,
+  "macro_count": {
+    "config_a_uart": 101,
+    "config_b_default": 87,
+    "variant_c_no_eeprom_settings": 85
+  },
+  "notes": [
+    "All values are Marlin's definitions at commit 2ef3ee6 as written in the six provided files; nothing here judges whether they match the physical board.",
+    "Agreement: the hand reading (manual_reading.py, written before any preprocessor run) matches the GCC -dD/-dM result for every macro in both configs on value, file and line (0 diffs), and clang -dM gives the same body for every board-chain macro.",
+    "How later files win here: the chain has no #undef. An unguarded #define of a macro that is already defined with a different body is a constraint violation that GCC/clang accept with a 'redefined' warning (not an error unless -Werror/-pedantic-errors), and the LATER definition takes effect. A guarded default (#ifndef X / #define X) later in the chain is skipped if an earlier file already defined X. So an earlier guard does not stop a later unguarded define from replacing it.",
+    "SURPRISE 1 - X_ENABLE_PIN: pins_FYSETC_SPIDER.h:68 defines PE9, then pins_FYSETC_S6.h:29 redefines it (unguarded) as PE12, so the effective X_ENABLE_PIN is PE12 in every config. PE12 is also TMC_SPI_SCK (pins_FYSETC_SPIDER.h:98).",
+    "SURPRISE 2 - TMC UART TX pins (config a only): pins_FYSETC_SPIDER.h:77-84 sets X/Y/Z/E0/E1/E2_SERIAL_TX_PIN = PE7/PE15/PD10/PD7/PC14/PC15, but pins_FYSETC_S6.h:35-46 (same #if HAS_TMC_UART, unguarded) redefines them as PE9/PE14/PD11/PD3/PC4/PE1 and adds *_SERIAL_RX_PIN = PE8/PE13/PD12/PA15/PC5/PE0. The S6 values win. Only X2_SERIAL_TX_PIN PA15 (SPIDER.h:78) and Z2_SERIAL_TX_PIN PD11 (SPIDER.h:81) come from the Spider file; X2/Z2 get no RX pin.",
+    "Fact for comparison: the overridden Spider TX values (PE7, PE15, PD10, PD7, PC14, PC15) equal X/Y/Z/E0/E1/E2_CS_PIN in pins_FYSETC_S6_common.h:84/89/94/99/104/109, and X2/Z2_SERIAL_TX_PIN equal X2/Z2_CS_PIN (SPIDER.h:50/55). The effective S6 TX/RX pins instead coincide with other macros in config (a): see same_pin_multiple_macros_a (e.g. PD12 = X2_STEP_PIN and Z_SERIAL_RX_PIN; PE1 = Z2_STEP_PIN and E2_SERIAL_TX_PIN; PE8 = X2_ENABLE_PIN and X_SERIAL_RX_PIN; PE14/PE13 = TMC_SPI_MOSI/MISO and Y_SERIAL_TX/RX_PIN).",
+    "SURPRISE 3 - BOARD_INFO_NAME: pins_FYSETC_SPIDER_V2_2.h:24 defines \"FYSETC SPIDER V22\", pins_FYSETC_SPIDER.h:25 is skipped by its #ifndef, then pins_FYSETC_S6.h:24 redefines it (unguarded) as \"FYSETC S6\", which wins. DEFAULT_MACHINE_NAME is BOARD_INFO_NAME (pins_FYSETC_SPIDER_V2_2.h:25), so it also expands to \"FYSETC S6\".",
+    "V2.2 / Spider values that win over S6 defaults (S6_common's #ifndef blocks are skipped): TEMP_BED_PIN PB0 (V2_2.h:29, not PC3 at S6_common:118), FAN0_PIN PA13 (V2_2.h:31, not PB0), FAN1_PIN PA14 (V2_2.h:32, not PB1), HEATER_0/1/2/BED = PB15/PC8/PB3/PB4 (SPIDER.h:60-63, not PB3/PB4/PB15/PC8), SERVO0_PIN PA2 (SPIDER.h:74, not PA3). FAN2_PIN PB2 (S6_common:143) is unguarded and comes from S6. TEMP_3_PIN PC3 and TEMP_4_PIN PB1 come only from V2_2.h:27-28.",
+    "Config dependency - TMC UART: every *_SERIAL_TX/RX_PIN is inside #if HAS_TMC_UART (SPIDER.h:76, S6.h:31) and is absent in config (b). The files test only HAS_TMC_UART, not X_DRIVER_TYPE etc. TMC_USE_SW_SPI and TMC_SPI_MOSI/MISO/SCK (SPIDER.h:90-99) are defined unconditionally in both configs; the SPI pins are #ifndef-guarded so a user Configuration could override them.",
+    "Config dependency - EEPROM (FLASH and LCD variants verified in extra_checks.txt): NO_EEPROM_SELECTED is a macro (pins.h:65) re-evaluated at each #if. With EEPROM_SETTINGS on and no type chosen, SPIDER.h:34-35 defines I2C_EEPROM; by S6_common.h:40 NO_EEPROM_SELECTED is now false, so S6_common.h:41 is skipped. MARLIN_EEPROM_SIZE 0x1000U is defined at SPIDER.h:41 and again identically at S6_common.h:50 (no warning). If FLASH_EEPROM_EMULATION is chosen, S6_common.h:48 defines FLASH_EEPROM_LEVELING instead and no MARLIN_EEPROM_SIZE comes from S6_common (the Spider #if ENABLED(I2C_EEPROM) at :40 is also false). With EEPROM_SETTINGS off (variant c), neither I2C_EEPROM nor MARLIN_EEPROM_SIZE is defined. No I2C bus pins or EEPROM address are defined in these files.",
+    "Config dependency - LCD: everything in pins_FYSETC_S6_common.h:194-280 depends on FYSETC_242_OLED_12864 / HAS_WIRED_LCD / CR10_STOCKDISPLAY / FYSETC_MINI_12864(_1_2/_2_0/_2_1) / FYSETC_GENERIC_12864_1_1 / IS_ULTIPANEL / REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER / IS_U8GLIB_ST7920 and is inactive in both configs (list in conditional_definitions_inactive_in_a). Notably: BOARD_NEOPIXEL_PIN = EXP1_07_PIN = PD0 only with FYSETC_242_OLED_12864 (:211); NEOPIXEL_PIN = EXP1_06_PIN = PC12 only with FYSETC_MINI_12864_2_1 (:258); with FYSETC_MINI_12864_1_2 or _2_0, RGB_LED_R/G/B_PIN become EXP1_06/07/08 = PC12/PD0/PD1 (:248-256) instead of the PB6/PB5/PB7 defaults at :282-290.",
+    "Config dependency - hotends: HOTENDS > 3 || E_STEPPERS > 3 hits #error at pins_FYSETC_SPIDER.h:102 (verified: test_d_hotends4.c, extra_checks.txt). The same check at pins_FYSETC_S6_common.h:26-27 is never reached in this chain because S6.h is only included from the #else at SPIDER.h:103-104. E0-E2 step/dir/enable/CS pins are defined unconditionally regardless of extruder count.",
+    "SD card: SD_SCK/MISO/MOSI/SS/DETECT_PIN = EXP2_02/01/06/04/07_PIN = PA5/PA6/PA7/PA4/PB10 (S6_common.h:183-188). SDSS, SDIO and serial-port settings are not defined in these files (they may come from pins_postprocess.h or Configuration, which are outside the provided sources).",
+    "Other shared pins in both configs: FIL_RUNOUT_PIN and X_MAX_PIN are both PA1 (S6_common.h:75/64); SERVO0_PIN (SPIDER.h:74) and Y_MAX_PIN (S6_common.h:66) are both PA2.",
+    "Non-pin values from the chain: STEP_TIMER 10 (S6_common.h:35), TMC_USE_SW_SPI (SPIDER.h:90, empty), I2C_EEPROM (SPIDER.h:35, empty), MARLIN_EEPROM_SIZE 0x1000U, EXP2_08_PIN -1 (RESET), RGB_LED_W_PIN -1.",
+    "Out of scope: pins_postprocess.h / pins_lcd.h / env_validate.h / macros.h / Conditionals were not provided and were stubbed. Real Marlin may derive further macros after this chain (e.g. *_STOP_PIN from *_MIN/*_MAX_PIN, SDSS from SD_SS_PIN) or #undef unused ones. The values above are the state at the end of the board pin chain.",
+    "Line numbers in 'file:line' refer to the provided files (identical to the copies in agentC/ and agentC/pp/). 'overrides' lists earlier active definitions that were replaced. 'not_applied' lists definitions of the same macro that the preprocessor skipped (#ifndef guard already satisfied, or a false #if branch)."
+  ]
+}

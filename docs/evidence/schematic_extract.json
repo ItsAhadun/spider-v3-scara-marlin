@@ -1,0 +1,781 @@
+{
+  "source": "/mnt/user-data/uploads/SCARA Printer/docs/Motherboard - FYSETC Spider V3/spider_V3.0_sch.pdf",
+  "revision_used": "PDF pages 15-28 (title blocks dated 3-5 June 2023, Rev v3.0). Pages 1-14 are an earlier set (May 2023).",
+  "page_index": {
+    "note": "The PDF holds TWO complete 14-sheet sets. PDF pages 1-14 are an older set (title-block dates May 2023); PDF pages 15-28 are the newer set (dates 3-5 June 2023). This extract uses the June set (pages 15-28). All page numbers below are PDF page numbers (1-based), with the schematic sheet number in brackets.",
+    "15": "[sheet 1] Block_Diagram (hierarchy and inter-sheet wiring; italic MCU-pin hints next to ports)",
+    "16": "[sheet 2] Power (input, buck regulators, 3V3, VCCIO, USB Type-C)",
+    "17": "[sheet 3] STM32F4XXVET6 (MCU, 74HCT365A buffers U9/U11/U12/U13, EEPROM, SWD, BOOT0/RESET)",
+    "18": "[sheet 4] FAN&RGB",
+    "19": "[sheet 5] TFcard (SD, EXP1/EXP2, Pi header, CAN)",
+    "20": "[sheet 6] Others (heaters, thermistors, endstops, probe)",
+    "21-22": "[sheets 7-8] HV_StepStick_Driver (2 instances: MD1, MD2)",
+    "23-28": "[sheets 9-14] StepStick_Driver (6 instances: MD3..MD8)",
+    "old_vs_new_diff": "A word-level diff of old vs new pages shows the same MCU pin labels on both MCU sheets (p3 vs p17). The new set adds SW2 (DIP-2: PI_SCL->BOOT0, PI_SDA->RESET), SW4/J80 (BOOT0 button), SW3 replaces SW1 (TC_KEY_4P) on reset, and PI_SDA/PI_SCL on Pi header J22 pins 4/6. In the old set, J22 pins 2/4/6/8 are no-connects. LED colours and resistor values also changed."
+  },
+  "method": "pdftotext -layout per page plus 300-dpi renders. Every MCU-pin mapping below was read visually on p17 (wire net labels and pin numbers, checked against the symbol pin-name column), cross-checked against the p15 hierarchy, and traced through the destination sheet. Net-name-only links (for example 'PE9_X_EN') were confirmed by reading the identical label at both ends.",
+  "mcu": "U10 'STM32F4XXVET6' symbol, LQFP100 (PB11 absent, pin 48 = VCAP_1, pin 49 = VSS_3 via R162 0R; matches the STM32F446xx option in the sheet's compatibility figure). HSE crystal 12 MHz.",
+  "drivers": {
+    "X": {
+      "EN": "PE9 (pin 40)",
+      "STEP": "PE11 (pin 42)",
+      "DIR": "PE10 (pin 41)",
+      "CS_PDN": "PE7 (pin 38). Net X_CS, NOT buffered -> sheet port SPI4_CS -> 100R (R188 or R189) -> jumper row C pin C2 -> (if jumpered) row C center -> module pin 4 (MS3 position)",
+      "DIAG_to": "HV_DIAG -> 2-pin jumper JP1 (p15) -> net X_MIN = PB14 (pin 53) = X-MIN endstop connector J26 pin 1",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PE9 -> net PE9_X_EN -> R130 1k -> U9 A0 (pin2) -> Y0 (pin3) -> X_EN",
+        "STEP": "PE11 -> net PE11_X_STEP -> R135 1k -> U9 A2 (pin6) -> Y2 (pin7) -> X_STEP",
+        "DIR": "PE10 -> net PE10_X_DIR -> R132 1k -> U9 A1 (pin4) -> Y1 (pin5) -> X_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "HV_StepStick_Driver (HV_MOT supply, SMAJ50A TVS, 47uF/63V)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "Y": {
+      "EN": "PD9 (pin 56)",
+      "STEP": "PD8 (pin 55)",
+      "DIR": "PB12 (pin 51)",
+      "CS_PDN": "PE15 (pin 46). Net Y_CS, NOT buffered -> SPI4_CS -> 100R (R188 or R189) -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "HV_DIAG -> JP2 (p15) -> net Y_MIN = PB13 (pin 52) = Y-MIN endstop connector J27 pin 1",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PD9 -> net PD9_Y_EN -> R136 1k -> U9 A3 (pin10) -> Y3 (pin9) -> Y_EN",
+        "STEP": "PD8 -> net PD8_Y_STEP -> R138 1k -> U9 A5 (pin14) -> Y5 (pin13) -> Y_STEP",
+        "DIR": "PB12 -> net PB12_Y_DIR -> R137 1k -> U9 A4 (pin12) -> Y4 (pin11) -> Y_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "HV_StepStick_Driver (HV_MOT supply)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "Z": {
+      "EN": "PD15 (pin 62)",
+      "STEP": "PD14 (pin 61)",
+      "DIR": "PD13 (pin 60)",
+      "CS_PDN": "PD10 (pin 57). Net Z_CS, NOT buffered -> SPI4_CS -> 100R (one of R190-R195) -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "DIAG -> JP3 (p15) -> net Z_MIN = PA0 (pin 23) = Z-MIN endstop J30 pin 1, also J36 pin 5 (10k R85 pull-up to +3V3 there)",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PD15 -> net PD15_Z_EN -> R140 1k -> U11 A0 (pin2) -> Y0 (pin3) -> Z_EN",
+        "STEP": "PD14 -> net PD14_Z_STEP -> R142 1k -> U11 A2 (pin6) -> Y2 (pin7) -> Z_STEP",
+        "DIR": "PD13 -> net PD13_Z_DIR -> R141 1k -> U11 A1 (pin4) -> Y1 (pin5) -> Z_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT supply, SMAJ28A, 100uF/35V)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "E0": {
+      "EN": "PD4 (pin 85)",
+      "STEP": "PD5 (pin 86)",
+      "DIR": "PD6 (pin 87)",
+      "CS_PDN": "PD7 (pin 88). Net E0_CS, NOT buffered -> SPI4_CS -> 100R -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "DIAG -> JP4 (p15) -> net Z_MAX = PA3 (pin 26); on p20 Z_MAX goes via R89 100R, a node with 10k R88 pull-up to +3V3, and D16 BAT85 (anode on MCU side) to probe connector J40 pin 1 (PROBE)",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PD4 -> net PD4_E0_EN -> R143 1k -> U11 A3 (pin10) -> Y3 (pin9) -> E0_EN",
+        "STEP": "PD5 -> net PD5_E0_STEP -> R145 1k -> U11 A5 (pin14) -> Y5 (pin13) -> E0_STEP",
+        "DIR": "PD6 -> net PD6_E0_DIR -> R144 1k -> U11 A4 (pin12) -> Y4 (pin11) -> E0_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "E1": {
+      "EN": "PE5 (pin 4)",
+      "STEP": "PE6 (pin 5)",
+      "DIR": "PC13 (pin 7)",
+      "CS_PDN": "PC14 (pin 8). Net E1_CS, NOT buffered -> SPI4_CS -> 100R -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "DIAG -> JP5 (p15) -> net Y_MAX = PA2 (pin 25) = Y-MAX endstop J38 pin 1, also J36 pin 3 (labelled BL_PWM)",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PE5 -> net PE5_E1_EN -> R150 1k -> U12 A0 (pin2) -> Y0 (pin3) -> E1_EN",
+        "STEP": "PE6 -> net PE6_E1_STEP -> R152 1k -> U12 A2 (pin6) -> Y2 (pin7) -> E1_STEP",
+        "DIR": "PC13 -> net PC13_E1_DIR -> R151 1k -> U12 A1 (pin4) -> Y1 (pin5) -> E1_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "E2": {
+      "EN": "PE3 (pin 2)",
+      "STEP": "PE2 (pin 1)",
+      "DIR": "PE4 (pin 3)",
+      "CS_PDN": "PC15 (pin 9). Net E2_CS, NOT buffered -> SPI4_CS -> 100R -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "DIAG -> JP6 (p15) -> net X_MAX = PA1 (pin 24) = X-MAX endstop J32 pin 1",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PE3 -> net PE3_E2_EN -> R154 1k -> U12 A3 (pin10) -> Y3 (pin9) -> E2_EN",
+        "STEP": "PE2 -> net PE2_E2_STEP -> R156 1k -> U12 A5 (pin14) -> Y5 (pin13) -> E2_STEP",
+        "DIR": "PE4 -> net PE4_E2_DIR -> R155 1k -> U12 A4 (pin12) -> Y4 (pin11) -> E2_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "E3": {
+      "EN": "PE8 (pin 39)",
+      "STEP": "PD12 (pin 59)",
+      "DIR": "PC4 (pin 33)",
+      "CS_PDN": "PA15 (pin 77). Net E3_CS, NOT buffered -> SPI4_CS -> 100R -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "NOT CONNECTED: the DIAG port of the E3 block has a no-connect X on p15 and no jumper",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PE8 -> net PE8_E3_EN -> R158 1k -> U13 A0 (pin2) -> Y0 (pin3) -> E3_EN",
+        "STEP": "PD12 -> net PD12_E3_STEP -> R160 1k -> U13 A2 (pin6) -> Y2 (pin7) -> E3_STEP",
+        "DIR": "PC4 -> net PC4_E3_DIR -> R159 1k -> U13 A1 (pin4) -> Y1 (pin5) -> E3_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    },
+    "E4": {
+      "EN": "PC5 (pin 34)",
+      "STEP": "PE1 (pin 98)",
+      "DIR": "PE0 (pin 97)",
+      "CS_PDN": "PD11 (pin 58). Net E4_CS, NOT buffered -> SPI4_CS -> 100R -> jumper row C (C2) -> module pin 4",
+      "DIAG_to": "NOT CONNECTED: the DIAG port of the E4 block has a no-connect X on p15 and no jumper",
+      "buffered": true,
+      "buffer_detail": {
+        "EN": "PC5 -> net PC5_E4_EN -> R161 1k -> U13 A3 (pin10) -> Y3 (pin9) -> E4_EN",
+        "STEP": "PE1 -> net PE1_E4_STEP -> R164 1k -> U13 A5 (pin14) -> Y5 (pin13) -> E4_STEP",
+        "DIR": "PE0 -> net PE0_E4_DIR -> R163 1k -> U13 A4 (pin12) -> Y4 (pin11) -> E4_DIR"
+      },
+      "CS_buffered": false,
+      "socket_type": "StepStick_Driver (VMOT)",
+      "page": 17,
+      "pages_all": [
+        15,
+        17,
+        "21-28 (driver sheet)"
+      ],
+      "driver_sheet_note": "Socket internals (identical on every instance, verified pp.21-28): module pin1 ENA <- EN port (10k pull-up to VCCIO); pin2 MS1, pin3 MS2, pin4 MS3, pin5 RST (net 'CGF0') <- jumper block rows A/B/C/D; pin6 SLEEP n/c; pin7 STEP <- STEP port; pin8 DIR <- DIR port; pin19 INDEX/DIAG1 -> net DIAG1 -> port DIAG (HV_DIAG on HV sheets); pin10 VDD = VCCIO; pin17 VREF n/c; pin16 VMOT = HV_MOT (HV sheets) or VMOT (others)."
+    }
+  },
+  "drivers_common": {
+    "buffers": "Four 74HCT365A (U9, U11, U12, U13), VCC = DC_5V, EN1/EN2 (pins 1, 15) tied to GND, so they are always enabled. Every MCU EN/STEP/DIR pin feeds an A input through a 1k series resistor, and the Y output drives the socket port. U9 serves X and Y, U11 serves Z and E0, U12 serves E1 and E2, U13 serves E3 and E4 (p17). CS, MOSI, SCK and MISO are NOT buffered.",
+    "polarity": "The 74HCT365A is drawn as a non-inverting buffer. The module ENA pin is drawn active-low (overbar), with a 10k pull-up to VCCIO on each driver sheet (R173, R175, ... R187).",
+    "logic_supply": "Driver VDD and jumper pull-ups use VCCIO. On p16, VCCIO comes from +5V through bead FB2. Alternative U5 ME6217C33M5G (3.3V LDO) is marked '/NC'.",
+    "socket_to_refdes_mapping": "UNRESOLVED. The instance pages are MD1 (p21), MD2 (p22), MD3 (p23), MD4 (p24), MD5 (p25), MD6 (p26), MD7 (p27), MD8 (p28). MD1 and MD2 are the only HV instances, so they are X and Y, but no page says which is which. No page names which of MD3..MD8 is Z or E0..E4. MCU pins per socket come from p15 and p17 and do not depend on this mapping.",
+    "page_refs": {
+      "block_diagram": 15,
+      "mcu_and_buffers": 17,
+      "driver_sheets": "21-28"
+    }
+  },
+  "jumper_block": "Each socket has a 12-pin 'JUMPER_4X3' (J64, J66, J68, J70, J72, J74, J76, J78 on pp.21-28; same on every instance). It has four rows A-D, each with a center pin (1-4), an 'x1' pin (5-8) and an 'x2' pin (9-12). Row A: center pin1 -> module MS1 (pin2); A1 (pin5) -> 4.7k (RN quad) -> VCCIO; A2 (pin9) -> SPI4.MOSI. Row B: center pin2 -> module MS2 (pin3); B1 (pin6) -> 4.7k -> VCCIO; B2 (pin10) -> SPI4.SCK. Row C: center pin3 -> module MS3 (pin4); C1 (pin7) -> 4.7k -> VCCIO; C2 (pin11) -> 100R (R188..R195) -> sheet port SPI4_CS -> that socket's MCU CS pin. Row D: center pin4 -> net 'CGF0' -> module RST (pin5); D1 (pin8) -> 4.7k -> VCCIO; D2 (pin12) -> SPI4.MISO. Shorting center to x1 pulls MSx/RST high to VCCIO, which is standalone microstep config. Shorting center to x2 routes the SPI bus (MOSI->MS1, SCK->MS2, CS->MS3, MISO->RST position). With no jumper on a row, that pin floats. The only MCU line that reaches MS3 (pin 4, the PDN/UART position on UART modules) is the socket's own CS pin through row C. No UART-specific labeling or TX/RX bridge resistor is drawn. The physical 4x3 pin layout and silkscreen are not shown. Separately, on p15, 2-pin jumpers JP1..JP6 connect the X, Y, Z, E0, E1, E2 driver DIAG outputs to the X_MIN, Y_MIN, Z_MIN, Z_MAX, Y_MAX, X_MAX endstop nets respectively. E3 and E4 have no DIAG jumper.",
+  "motor_spi": {
+    "MOSI": "PE14 (pin 45), net SPI4_MOSI -> R131 100R -> bus member SPI4.MOSI -> every socket's jumper A2",
+    "MISO": "PE13 (pin 44), net SPI4_MISO -> R133 100R -> SPI4.MISO -> every socket's jumper D2",
+    "SCK": "PE12 (pin 43), net SPI4_SCK -> R134 100R -> SPI4.SCK -> every socket's jumper B2",
+    "peripheral": "SPI4 (the symbol lists PE12 SPI4_SCK, PE13 SPI4_MISO, PE14 SPI4_MOSI)",
+    "CS": "One CS per socket (see drivers), not buffered, 100R series on each driver sheet",
+    "buffered": false,
+    "page": 17,
+    "pages_all": [
+      15,
+      17,
+      "21-28"
+    ]
+  },
+  "endstops": {
+    "X_MIN": {
+      "mcu": "PB14 (pin 53)",
+      "connector": "J26 (JSTXH 3-R): pin1 = X_MIN signal, pin2 = GND, pin3 = V+ from JP10 (pin1 +3V3 / pin3 +24V, pin2 -> J26 pin3)",
+      "shared_with": "X driver DIAG via JP1",
+      "pullup_on_schematic": "none drawn",
+      "page": 20
+    },
+    "Y_MIN": {
+      "mcu": "PB13 (pin 52)",
+      "connector": "J27: pin1 = Y_MIN, pin2 = GND, pin3 = V+ via JP11 (+3V3 / +24V)",
+      "shared_with": "Y driver DIAG via JP2",
+      "pullup_on_schematic": "none drawn",
+      "page": 20
+    },
+    "Z_MIN": {
+      "mcu": "PA0 (pin 23)",
+      "connector": "J30: pin1 = Z_MIN, pin2 = GND, pin3 = V+ via JP12 (+3V3 / +24V). Also J36 pin5",
+      "shared_with": "Z driver DIAG via JP3",
+      "pullup_on_schematic": "R85 10k to +3V3 (at J36)",
+      "page": 20
+    },
+    "X_MAX": {
+      "mcu": "PA1 (pin 24)",
+      "connector": "J32: pin1 = X_MAX, pin2 = GND, pin3 = V+ via JP13 (DC_5V / +24V)",
+      "shared_with": "E2 driver DIAG via JP6",
+      "pullup_on_schematic": "none drawn",
+      "page": 20
+    },
+    "Y_MAX": {
+      "mcu": "PA2 (pin 25)",
+      "connector": "J38: pin1 = Y_MAX, pin2 = GND, pin3 = V+ via JP14 (DC_5V / +24V). Also J36 pin3, where the same wire carries labels Y_MAX and BL_PWM",
+      "shared_with": "E1 driver DIAG via JP5",
+      "pullup_on_schematic": "none drawn",
+      "page": 20
+    },
+    "Z_MAX": {
+      "mcu": "PA3 (pin 26)",
+      "connector": "Z_MAX -> R89 100R -> node (R88 10k to +3V3) -> D16 BAT85 (anode on MCU side, cathode to net PROBE) -> J40 pin1. J40 pin2 = GND, pin3 = V_PROBE from JP15 (pin1 +24V / pin3 DC_5V)",
+      "shared_with": "E0 driver DIAG via JP4 (joins on the MCU side of R89)",
+      "pullup_on_schematic": "R88 10k to +3V3",
+      "page": 20
+    },
+    "J36_probe_header": "J36 (CON_5) p20: 1 = GND, 2 = DC_5V, 3 = Y_MAX/BL_PWM (PA2), 4 = GND, 5 = Z_MIN (PA0, R85 10k pull-up to +3V3)",
+    "voltage_jumper_note": "JP10..JP14 each have an unlabeled blue bar drawn between the pin-1 supply node (+3V3 for MIN, DC_5V for MAX) and pin 2. It looks like a default short (net-tie or solder bridge) to the low-voltage option. See unresolved.",
+    "page": 20,
+    "pages_all": [
+      15,
+      17,
+      20
+    ]
+  },
+  "heaters": {
+    "HEAT0 (E0)": {
+      "mcu": "PB15 (pin 54)",
+      "chain": "E0_Heater -> R110 2.7k -> Q22 BC817 (R114 10k pull-down) -> Q20 BC807 high-side from +12V -> net E0 (R112 1k to GND) -> R126 10R -> Q16 WSD3050 gate (R77 100k to GND) -> drain E0- -> J1F pins 11/12 (E0+ = +24V)",
+      "page": 20
+    },
+    "HEAT1 (E1)": {
+      "mcu": "PC8 (pin 65)",
+      "chain": "E1_Heater -> R111 2.7k -> Q23 -> Q21 -> E1 -> R127 10R -> Q17 WSD3050 -> J1E pins 9/10 (+24V)",
+      "page": 20
+    },
+    "HEAT2 (E2)": {
+      "mcu": "PB3 (pin 89; symbol name PB3/JTDO/TRACESWO)",
+      "chain": "E2_Heater -> R120 2.7k -> Q26 -> Q24 -> E2 -> R128 10R -> Q18 WSD3050 -> J1D pins 7/8 (+24V)",
+      "page": 20
+    },
+    "BED": {
+      "mcu": "PB4 (pin 90; symbol name PB4/NJTRST)",
+      "chain": "BED_Heater -> R121 2.2k (R125 1k pull-down) -> Q27 BC817 -> Q25 BC807 (+12V) -> BED (R123 1k) -> R129 10R -> Q19 WSD30150DN56 -> J1C pins 5/6 (+24V_BED)",
+      "page": 20
+    },
+    "polarity": "Non-inverting as drawn: MCU high turns on BC817, which turns on BC807, which drives the gate to about 12V, which turns the MOSFET on. Every gate has a 100k pull-down.",
+    "pages_all": [
+      15,
+      17,
+      20
+    ]
+  },
+  "thermistors": {
+    "T0": {
+      "mcu": "PC0 (pin 15, ADC123_IN10)",
+      "net": "THERM_END0",
+      "connector": "J28",
+      "page": 20
+    },
+    "T1": {
+      "mcu": "PC1 (pin 16, ADC123_IN11)",
+      "net": "THERM_END1",
+      "connector": "J31",
+      "page": 20
+    },
+    "T2": {
+      "mcu": "PC2 (pin 17, ADC123_IN12)",
+      "net": "THERM_END2",
+      "connector": "J37",
+      "page": 20
+    },
+    "T3": {
+      "mcu": "PC3 (pin 18, ADC123_IN13)",
+      "net": "THERM_END3",
+      "connector": "J29",
+      "page": 20
+    },
+    "T4": {
+      "mcu": "PB1 (pin 36, ADC12_IN9)",
+      "net": "THERM_END4",
+      "connector": "J35",
+      "page": 20
+    },
+    "TB": {
+      "mcu": "PB0 (pin 35, ADC12_IN8)",
+      "net": "THERM_BED",
+      "connector": "J39",
+      "page": 20
+    },
+    "circuit": "Each input: 4.7k pull-up to +3V3 (R81 T0, R83 T1, R86 T2, R82 T3, R84 T4, R87 TB) and 10uF to GND. The connector (JSTXH 2-R) pin1 = signal and pin2 = GND. No series resistor to the MCU. The ADC channel names are taken from the MCU symbol text.",
+    "pages_all": [
+      15,
+      17,
+      20
+    ]
+  },
+  "fans": {
+    "FAN0": {
+      "mcu": "PA13 (pin 72; symbol PA13/JTMS-SWDIO, also J62 SWD pin 4)",
+      "chain": "PWM_FAN0 -> R34 2.7k (R36 10k pull-down) -> Q2 BC817 -> Q1 BC807 from MOS_PWR -> net FAN0 (R35 1k) -> R40 1k -> Q12B WSD4066DN gate (R43 100k) -> J13 pin1 (low side). J13 pin2 = V+ chosen on J10 (DC_5V / +12V / +24V)",
+      "page": 18
+    },
+    "FAN1": {
+      "mcu": "PA14 (pin 76; symbol PA14/JTCK-SWCLK, also J62 SWD pin 5)",
+      "chain": "PWM_FAN1 -> R48 -> Q6 -> Q5 -> FAN1 -> R41 -> Q3A WSD4066DN -> J14 pin1. V+ via J11",
+      "page": 18
+    },
+    "FAN2": {
+      "mcu": "PB2 (pin 37; symbol PB2-BOOT1, R139 10k to GND at the pin)",
+      "chain": "PWM_FAN2 -> R60 -> Q10 -> Q9 -> FAN2 -> R42 -> Q3B WSD4066DN -> J15 pin1. V+ via J12",
+      "page": 18
+    },
+    "FAN3": "NOT PRESENT as a net. Only FAN0..FAN2 exist (see the RGB channels below for the other three MOSFET outputs)",
+    "FAN4": "NOT PRESENT as a net",
+    "FAN5": "NOT PRESENT as a net",
+    "RGB_channels_low_side_mosfets": {
+      "PWM_LED_B": {
+        "mcu": "PB7 (pin 93)",
+        "chain": "R54 2.7k -> Q8/Q7 -> LED_B -> R53 1k -> Q4A WSD4066DN -> net RGB_B -> J59 pin1 (pin2 = V+ via J57) and J17 pin2"
+      },
+      "PWM_LED_R": {
+        "mcu": "PB6 (pin 92)",
+        "chain": "R66 -> Q13/Q11 -> LED_R -> R65 -> Q4B -> RGB_R -> J60 pin1 (V+ via J58) and J17 pin3"
+      },
+      "PWM_LED_G": {
+        "mcu": "PB5 (pin 91)",
+        "chain": "R73 -> Q15/Q14 -> LED_G -> R72 -> Q12A -> RGB_G -> J61 pin1 (V+ via J16) and J17 pin4"
+      },
+      "J17": "CON_5 RGB strip header: pin1 = V+ (J57-selected node), 2 = RGB_B, 3 = RGB_R, 4 = RGB_G",
+      "page": 18
+    },
+    "MOS_PWR": "+12V via R30 0R. Alternative DC_5V via R31 marked NC (p18).",
+    "polarity": "Non-inverting (MCU high turns the MOSFET on), same two-transistor level shifter as the heaters.",
+    "pages_all": [
+      15,
+      17,
+      18
+    ]
+  },
+  "eeprom": {
+    "part": "AT24C32 (U7)",
+    "bus": "I2C on PB8/PB9 (the symbol lists PB8 I2C1_SCL and PB9 I2C1_SDA)",
+    "SCL": "PB8 (pin 95), net PB8/SCL -> R148 1k -> U7 pin6 SCL",
+    "SDA": "PB9 (pin 96), net PB9/SDA -> R149 1k -> U7 pin5 SDA",
+    "pullups": "R147 2.7k (SCL) and R146 2.7k (SDA) to +3V3, on the MCU side of the 1k resistors",
+    "address_straps": "A0 (pin1), A1 (pin2), A2 (pin3) all tied to GND (with pin4 GND). Address pins = 000",
+    "WP": "pin7 tied to GND (write enabled)",
+    "VCC": "+3V3 with C68 100nF",
+    "page": 17
+  },
+  "exp1": {
+    "connector": "J24 (CONN PCB 5x2)",
+    "pins": {
+      "1": "DC_5V",
+      "2": "GND",
+      "3": "LCD_D7 = PD1 (pin 82), same net as CAN_TX",
+      "4": "LCD_D6 = PD0 (pin 81), same net as CAN_RX",
+      "5": "LCD_D5 = PC12 (pin 80)",
+      "6": "LCD_D4 = PC10 (pin 78)",
+      "7": "LCD_RS = PD2 (pin 83)",
+      "8": "LCD_EN = PC11 (pin 79)",
+      "9": "BTN_ENC = PA8 (pin 67)",
+      "10": "BEEP = PC9 (pin 66)"
+    },
+    "note": "LCD_D6/LCD_D7 are wired to the CAN_RX/CAN_TX nets on both p15 (junction dots) and p17 (the PD0 wire carries labels CAN_RX and LCD_D6; the PD1 wire carries CAN_TX and LCD_D7). These signals are shared with the CAN transceiver U14.",
+    "page": 19,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "exp2": {
+    "connector": "J23 (CONN PCB 5x2)",
+    "pins": {
+      "1": "DC_5V",
+      "2": "GND",
+      "3": "RESET (MCU NRST via R166 100R)",
+      "4": "CD = SD_DET net = PB10 (pin 47), shared with on-board TF detect",
+      "5": "SPI1.MOSI = PA7 (pin 32)",
+      "6": "BTN_EN2 = PC7 (pin 64) (MCU-sheet port ENC_B)",
+      "7": "SPI1.SS = PA4 (pin 29), the SAME net that drives the on-board TF card CS (via RN1D)",
+      "8": "BTN_EN1 = PC6 (pin 63) (MCU-sheet port ENC_A)",
+      "9": "SPI1.SCK = PA5 (pin 30)",
+      "10": "SPI1.MISO = PA6 (pin 31)"
+    },
+    "page": 19,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "sd": {
+    "connector": "J21 TF_CARD (microSD), +3V3 supply, C47 10uF",
+    "bus": "SPI1",
+    "CS": "PA4 (pin 29) SPI1.SS -> RN1D 10R -> TF_SS -> pin2 CD/DAT3",
+    "MOSI": "PA7 (pin 32) SPI1.MOSI -> pin3 CMD (no series resistor drawn)",
+    "SCK": "PA5 (pin 30) SPI1.SCK -> RN1C 10R -> pin5 CLK",
+    "MISO": "PA6 (pin 31) SPI1.MISO -> RN1B 10R -> pin7 DAT0",
+    "detect": "PB10 (pin 47) SD_DET -> net CD -> RN1A 10R -> pin9 DET1",
+    "DAT1_DAT2": "pins 8 and 1 no-connect",
+    "also_on": "J25 (CON8A 2x4, p19): 1 DC_5V, 2 CD, 3 SPI1.MISO, 4 SPI1.MOSI, 5 SPI1.SCK, 6 SPI1.SS, 7 GND, 8 RESET. EXP2 carries the same SPI1 nets.",
+    "page": 19,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "rgb": "Neopixel data: PD3 (pin 84), net 'Neo-pixel' (the same wire is also labelled DEBUG_LED, and drives blue LED D63 through R153 1.5k to GND) -> U8 74HC1G125 A (pin2), OE (pin1) = GND, VCC = DC_5V -> Y (pin4) -> J19 pin2. J19 (CON_3): pin1 = GND, pin2 = data, pin3 = DC_5V. Pages 17-18 (p15 hint PD3). The analog RGB PWM channels are PB7 (B), PB6 (R), PB5 (G); see fans.RGB_channels_low_side_mosfets.",
+  "can": {
+    "transceiver": "U14 'TJA1040/TJA1050' (a Chinese note says pin 5 SPLIT floats when TJA1050 is used); VCC = +5V",
+    "TX": "PD1 (pin 82) CAN_TX -> U14 pin1 TXD (shared with EXP1 pin3 LCD_D7)",
+    "RX": "PD0 (pin 81) CAN_RX <- U14 pin4 RXD (shared with EXP1 pin4 LCD_D6)",
+    "peripheral": "The symbol lists PD0 CAN1_RX and PD1 CAN1_TX",
+    "STB": "U14 pin8 -> R171 1k -> GND (always active, not MCU-controlled)",
+    "bus_side": "CANH/CANL -> L4 common-mode choke -> split termination R167 + R168 (60.4R each, midpoint C91 100nF to GND and U14 SPLIT via R169 0R) -> C90/C92 100pF, D64 NUP2105LT1G -> J20 (JSTXH 2-R): pin1 CAN_H, pin2 CAN_L. Termination is permanently fitted (no jumper)",
+    "page": 19,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "usb": {
+    "connector": "J5 TYPE-C_16P",
+    "DM": "PA11 (pin 70) USB_DM <- R16 27R <- D4 USBLC6-2SC6Y pin6/pin1 <- J5 A7 DN1 and B7 DN2",
+    "DP": "PA12 (pin 71) USB_DP <- R17 27R <- D4 pin4/pin3 <- J5 A6 DP1 and B6 DP2",
+    "CC": "CC1 (A5) R18 5.1k to GND, CC2 (B5) R19 5.1k to GND",
+    "VBUS": "UVCC, joined to USB_5V through F7 500mA",
+    "aux_header": "J6 (CON4): 1 UVCC, 2 USB_DM, 3 USB_DP, 4 GND (on the connector side of the 27R resistors)",
+    "5V_select": "J2 (CON_3): pin1 USB_5V, pin2 +5V, pin3 DC_5V",
+    "page": 16,
+    "pages_all": [
+      15,
+      16,
+      17
+    ]
+  },
+  "pi_uart": {
+    "connector": "J22 (CONN 5x2)",
+    "MCU_TX": "PA9 (pin 68) TX1 = USART1_TX -> port WIFI/RPI_TX -> J22 pin9 (label 'TX')",
+    "MCU_RX": "PA10 (pin 69) RX1 = USART1_RX <- port WIFI/RPI_RX <- J22 pin7 (label 'RX')",
+    "J22_full_pinout": {
+      "1": "PI_5V",
+      "3": "PI_5V",
+      "5": "GND",
+      "7": "RX (to MCU PA10)",
+      "9": "TX (from MCU PA9)",
+      "2": "no-connect",
+      "4": "PI_SDA",
+      "6": "PI_SCL",
+      "8": "no-connect",
+      "10": "GND"
+    },
+    "series_parts": "none drawn",
+    "page": 19,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "i2c": {
+    "header": "J7 (HEAD_4) p17: pin1 = V+ from JP16 pin2 (JP16 pin1 = +3V3, pin3 = DC_5V), pin2 = GND, pin3 = PB8/SCL (PB8 pin 95), pin4 = PB9/SDA (PB9 pin 96)",
+    "bus_devices": "Shared with the AT24C32 EEPROM (through 1k resistors) and 2.7k pull-ups to +3V3",
+    "pi_i2c_lines": "J22 pin4 PI_SDA and pin6 PI_SCL go (p17) only to SW2 'SW DIP-2': PI_SCL -> switch -> BOOT0, PI_SDA -> switch -> RESET. On the MCU sheet they are NOT wired to PB8/PB9, although p15 shows italic hints 'PB8'/'PB9' next to the PI_SCL/PI_SDA ports (see unresolved)",
+    "page": 17,
+    "pages_all": [
+      15,
+      17,
+      19
+    ]
+  },
+  "boot": {
+    "BOOT0": "MCU pin 94 BOOT0 net, R165 10k to GND. SW4 pushbutton from VDD to BOOT0, with J80 (CON2) in parallel. SW2 DIP switch 1 connects PI_SCL (J22 pin6) to BOOT0. J62 SWD header pin2 = BOOT0.",
+    "NRST": "MCU pin 14 NRST -> R166 100R -> net RESET. RESET has R157 100k pull-up to VDD and C71 100nF to GND. SW3 pushbutton RESET -> GND with J63 (CON2) in parallel. SW2 DIP switch 2 connects PI_SDA (J22 pin4) to RESET. RESET also goes to EXP2 pin3 and J25 pin8.",
+    "BOOT1": "PB2 (pin 37) has R139 10k to GND. This pin is also PWM_FAN2.",
+    "SWD_header": "J62 (CON_5): 1 +3V3, 2 BOOT0, 3 GND, 4 PA13/SWDIO, 5 PA14/SWCLK. PA13 and PA14 are also PWM_FAN0 and PWM_FAN1.",
+    "clock": "Y1 12MHz/10ppm on PH0-OSC_IN (pin 12) and PH1-OSC_OUT (pin 13), C86/C87 16pF",
+    "older_revision": "Pages 1-14 (May 2023) have no SW2, SW4 or J80. Reset there is SW1 (TC_KEY_4P) with J63.",
+    "page": 17
+  },
+  "other": {
+    "PD3_debug_led": "PD3 also drives D63 (BLUE) through R153 1.5k to GND (net labels DEBUG_LED and Neo-pixel on the same wire), p17",
+    "PB2_BOOT1": "PB2 = PWM_FAN2 with R139 10k pull-down (BOOT1), p17",
+    "SWD_shared_with_fans": "PA13 (SWDIO) = PWM_FAN0 and PA14 (SWCLK) = PWM_FAN1. Both are on J62. The MCU symbol lists no timer channel on PA13 or PA14 ('PA13/JTMS-SWDIO/EVENTOUT', 'PA14/JTCK-SWCLK/EVENTOUT'), p17",
+    "JTAG_pins_used_as_heaters": "PB3 (symbol PB3/JTDO/TRACESWO) = E2_Heater; PB4 (symbol PB4/NJTRST) = BED_Heater, p17",
+    "BL_PWM": "J36 pin3 BL_PWM is the Y_MAX net = PA2, p20",
+    "probe": "J40 PROBE <- D16 BAT85 <- Z_MAX (PA3). See endstops, p20",
+    "mcu_supply": "VDD = VBAT = 3V3_MCU (one net). VDDA through bead FB3. VCAP_1 (pin 48) C72 4.7uF, VCAP_2 (pin 73) C73 4.7uF. Pin 49 VSS_3 -> R162 0R -> GND. That matches the F446 LQFP100 option in the sheet's 'Figure 1' note, p17",
+    "power_select_misc": "J33 (+24V/GND) and J34 (+12V/GND) are 2x2 power outputs, p20. Fan voltage-select headers J10/J11/J12 and RGB headers J57/J58/J16 each offer DC_5V / +12V / +24V, p18",
+    "unused_gpio": "None. All 79 GPIOs of the LQFP100 symbol (PA0-15, PB0-15 without PB11, PC0-15, PD0-15, PE0-15) carry a net; PH0/PH1 are the crystal",
+    "full_pin_table": {
+      "PA0": "Z_MIN (+JP3 Z DIAG)",
+      "PA1": "X_MAX (+JP6 E2 DIAG)",
+      "PA2": "Y_MAX / BL_PWM (+JP5 E1 DIAG)",
+      "PA3": "Z_MAX / probe (+JP4 E0 DIAG)",
+      "PA4": "SPI1.SS (TF CS, EXP2-7, J25-6)",
+      "PA5": "SPI1.SCK",
+      "PA6": "SPI1.MISO",
+      "PA7": "SPI1.MOSI",
+      "PA8": "BTN_ENC (EXP1-9)",
+      "PA9": "TX1 -> J22 pin9",
+      "PA10": "RX1 <- J22 pin7",
+      "PA11": "USB_DM",
+      "PA12": "USB_DP",
+      "PA13": "PWM_FAN0 / SWDIO",
+      "PA14": "PWM_FAN1 / SWCLK",
+      "PA15": "E3_CS",
+      "PB0": "THERM_BED",
+      "PB1": "THERM_END4",
+      "PB2": "PWM_FAN2 (BOOT1, 10k pull-down)",
+      "PB3": "E2_Heater",
+      "PB4": "BED_Heater",
+      "PB5": "PWM_LED_G",
+      "PB6": "PWM_LED_R",
+      "PB7": "PWM_LED_B",
+      "PB8": "I2C SCL (EEPROM, J7)",
+      "PB9": "I2C SDA (EEPROM, J7)",
+      "PB10": "SD_DET / CD",
+      "PB12": "Y_DIR (buffered)",
+      "PB13": "Y_MIN (+JP2 Y DIAG)",
+      "PB14": "X_MIN (+JP1 X DIAG)",
+      "PB15": "E0_Heater",
+      "PC0": "THERM_END0",
+      "PC1": "THERM_END1",
+      "PC2": "THERM_END2",
+      "PC3": "THERM_END3",
+      "PC4": "E3_DIR (buffered)",
+      "PC5": "E4_EN (buffered)",
+      "PC6": "BTN_EN1 / ENC_A (EXP2-8)",
+      "PC7": "BTN_EN2 / ENC_B (EXP2-6)",
+      "PC8": "E1_Heater",
+      "PC9": "BEEP (EXP1-10)",
+      "PC10": "LCD_D4 (EXP1-6)",
+      "PC11": "LCD_EN (EXP1-8)",
+      "PC12": "LCD_D5 (EXP1-5)",
+      "PC13": "E1_DIR (buffered)",
+      "PC14": "E1_CS",
+      "PC15": "E2_CS",
+      "PD0": "CAN_RX = LCD_D6 (EXP1-4)",
+      "PD1": "CAN_TX = LCD_D7 (EXP1-3)",
+      "PD2": "LCD_RS (EXP1-7)",
+      "PD3": "Neo-pixel / DEBUG_LED",
+      "PD4": "E0_EN (buffered)",
+      "PD5": "E0_STEP (buffered)",
+      "PD6": "E0_DIR (buffered)",
+      "PD7": "E0_CS",
+      "PD8": "Y_STEP (buffered)",
+      "PD9": "Y_EN (buffered)",
+      "PD10": "Z_CS",
+      "PD11": "E4_CS",
+      "PD12": "E3_STEP (buffered)",
+      "PD13": "Z_DIR (buffered)",
+      "PD14": "Z_STEP (buffered)",
+      "PD15": "Z_EN (buffered)",
+      "PE0": "E4_DIR (buffered)",
+      "PE1": "E4_STEP (buffered)",
+      "PE2": "E2_STEP (buffered)",
+      "PE3": "E2_EN (buffered)",
+      "PE4": "E2_DIR (buffered)",
+      "PE5": "E1_EN (buffered)",
+      "PE6": "E1_STEP (buffered)",
+      "PE7": "X_CS",
+      "PE8": "E3_EN (buffered)",
+      "PE9": "X_EN (buffered)",
+      "PE10": "X_DIR (buffered)",
+      "PE11": "X_STEP (buffered)",
+      "PE12": "SPI4_SCK (100R)",
+      "PE13": "SPI4_MISO (100R)",
+      "PE14": "SPI4_MOSI (100R)",
+      "PE15": "Y_CS",
+      "PH0": "OSC_IN 12MHz",
+      "PH1": "OSC_OUT 12MHz",
+      "BOOT0(pin94)": "BOOT0",
+      "NRST(pin14)": "RESET via R166 100R"
+    },
+    "page": 17
+  },
+  "unresolved": [
+    "Driver-instance mapping: the per-socket sheets (pp.21-28) do not print which axis they belong to. MD1/MD2 (with J64/J65, J66/J67, R188/R189, RN3/RN4) are the two HV instances (X and Y) but not identified individually. Which of MD3..MD8 (J68..J79, R190..R195, RN5..RN10) is Z or E0..E4 is not stated. Page order is not proof, because sheet order could be alphabetical by instance name. MCU pin assignments are unaffected; only refdes-to-socket labels are.",
+    "Jumper block physical arrangement: JUMPER_4X3 is shown electrically (center / x1 pull-up / x2 SPI per row) but the physical pin layout and silkscreen are not drawn. UART (PDN_UART) mode is not labelled anywhere. The only MCU line reaching module pin 4 (MS3) is the socket CS through row C, and no TX/RX bridge resistor is drawn. Whether that CS line is meant for single-wire UART cannot be confirmed from the schematic.",
+    "PI_SCL/PI_SDA vs PB8/PB9: p15 shows italic hints 'PB8'/'PB9' beside the PI_SCL/PI_SDA ports, but on p17 those ports connect only to SW2 (DIP) -> BOOT0/RESET, and PB8/PB9 connect only to the EEPROM, J7 and pull-ups. No net joins PI_SCL to PB8 or PI_SDA to PB9. The connectivity (p17) has been taken as authoritative.",
+    "Endstop voltage jumpers JP10-JP14: an unlabeled blue bar (no refdes or value) is drawn between the pin-1 supply (+3V3 for MIN, DC_5V for MAX) and pin 2 (connector V+). It looks like a default short (net-tie or solder bridge). If it is populated, moving the jumper to the +24V position would short +24V to +3V3/DC_5V. Its population status cannot be determined.",
+    "Population options: VCCIO is taken as +5V via FB2 because U5 (3.3V LDO) is marked 'ME6217C33M5G/NC'. MOS_PWR is taken as +12V because R30 is 0R and R31 is 'NC'. The note 'R27=0R (446) / R27=4.7uF, C32=NC (405/407)' refers to refdes that do not appear on the drawing (R162/C72 are drawn), so the fitted MCU variant can only be inferred (drawn as the F446 option).",
+    "J62 SWD header: the rotated GND symbol on pin 3 visually overlaps the pin-2 (BOOT0) and pin-4 (SWDIO) wires. It is interpreted as GND on pin 3 only (net labels BOOT0 on pin 2, PA13/SWDIO on pin 4).",
+    "FAN3, FAN4, FAN5 do not exist as nets. The schematic has only FAN0-FAN2 plus three MOSFET-switched RGB channels (PB7/PB6/PB5 -> J59/J60/J61 and J17). Any FAN3-5 naming is outside this schematic.",
+    "Endstop pull-ups: no pull-up resistor is drawn on X_MIN (PB14), Y_MIN (PB13), X_MAX (PA1) or Y_MAX (PA2). Z_MIN has R85 10k and Z_MAX has R88 10k to +3V3. Whether firmware must enable internal pull-ups is outside the schematic.",
+    "Board revision: the PDF contains two revisions (pp.1-14 May 2023, pp.15-28 June 2023). The MCU pin labels match between them, but the BOOT0/RESET/Pi-I2C circuitry differs. The schematic cannot tell which revision a given physical board is."
+  ],
+  "evidence_files": {
+    "block_diagram_driver_ports_and_DIAG_jumpers": [
+      "agentB/evidence/p15_drv_XYZ.png",
+      "agentB/evidence/p15_drv_E0E1E2.png",
+      "agentB/evidence/p15_drv_E3E4.png",
+      "agentB/evidence/p15_overview.png"
+    ],
+    "block_diagram_endstop_routing": [
+      "agentB/evidence/p15_endstop_bus_bottom.png",
+      "agentB/evidence/p15_endstop_bus_bottom_right.png"
+    ],
+    "block_diagram_left_blocks_(fan/rgb/tf/exp/can/pi)": [
+      "agentB/evidence/p15_left_blocks.png"
+    ],
+    "mcu_pin_net_labels": [
+      "agentB/evidence/p17_mcu_PA.png",
+      "agentB/evidence/p17_mcu_PB.png",
+      "agentB/evidence/p17_mcu_PC.png",
+      "agentB/evidence/p17_mcu_PD.png",
+      "agentB/evidence/p17_mcu_PE.png"
+    ],
+    "mcu_symbol_pin_names": [
+      "agentB/evidence/p17_sym_PA.png",
+      "agentB/evidence/p17_sym_PB.png",
+      "agentB/evidence/p17_sym_PC.png",
+      "agentB/evidence/p17_sym_PD.png",
+      "agentB/evidence/p17_sym_PE.png"
+    ],
+    "74HCT365_buffers": [
+      "agentB/evidence/p17_U9.png",
+      "agentB/evidence/p17_U11.png",
+      "agentB/evidence/p17_U12.png",
+      "agentB/evidence/p17_U13.png"
+    ],
+    "motor_spi_and_sd_spi_bus": [
+      "agentB/evidence/p17_spi_bus.png"
+    ],
+    "eeprom_and_i2c_header": [
+      "agentB/evidence/p17_eeprom_J7.png"
+    ],
+    "swd_sw2_reset_boot": [
+      "agentB/evidence/p17_J62_SW2_reset.png",
+      "agentB/evidence/p17_J62_zoom.png",
+      "agentB/evidence/p17_SW2_zoom.png",
+      "agentB/evidence/p17_SW3_reset_zoom.png",
+      "agentB/evidence/p17_J80_SW4_boot0.png",
+      "agentB/evidence/p17_osc_boot_nrst.png"
+    ],
+    "pb2_and_pd3": [
+      "agentB/evidence/p17_PB2_R139.png",
+      "agentB/evidence/p17_PD3_neopixel_PB2.png"
+    ],
+    "mcu_variant_and_power": [
+      "agentB/evidence/p17_mcu_variant_note.png",
+      "agentB/evidence/p17_lqfp100_compat_fig.png",
+      "agentB/evidence/p17_U10C_power_vcap.png",
+      "agentB/evidence/p17_mcu_power.png"
+    ],
+    "fans": [
+      "agentB/evidence/p18_fan0_driver.png",
+      "agentB/evidence/p18_fan0_J10_J13.png",
+      "agentB/evidence/p18_fan1_fan2_driver.png",
+      "agentB/evidence/p18_fan1_fan2_out.png"
+    ],
+    "rgb_and_neopixel": [
+      "agentB/evidence/p18_LED_B_driver.png",
+      "agentB/evidence/p18_LED_R_G_driver.png",
+      "agentB/evidence/p18_RGB_outputs_J17.png",
+      "agentB/evidence/p18_J57_J59_zoom.png",
+      "agentB/evidence/p18_neopixel_U8_J19.png"
+    ],
+    "pi_header": [
+      "agentB/evidence/p19_J22_pi.png",
+      "agentB/evidence/p19_J22_zoom.png"
+    ],
+    "exp1_exp2_j25": [
+      "agentB/evidence/p19_J24_EXP1.png",
+      "agentB/evidence/p19_J23_EXP2.png",
+      "agentB/evidence/p19_J25.png"
+    ],
+    "tf_card": [
+      "agentB/evidence/p19_J21_TF.png",
+      "agentB/evidence/p19_TF_left_zoom.png"
+    ],
+    "can": [
+      "agentB/evidence/p19_CAN_U14.png",
+      "agentB/evidence/p19_CAN_J20.png"
+    ],
+    "usb_and_power_select": [
+      "agentB/evidence/p16_USB_typeC.png",
+      "agentB/evidence/p16_USB_mid_zoom.png",
+      "agentB/evidence/p16_J6_usb_hdr.png",
+      "agentB/evidence/p16_J2_5V.png"
+    ],
+    "vccio": [
+      "agentB/evidence/p16_VCCIO.png",
+      "agentB/evidence/p16_overview.png"
+    ],
+    "heaters": [
+      "agentB/evidence/p20_heater_predrivers.png",
+      "agentB/evidence/p20_E0_E1_mosfets.png",
+      "agentB/evidence/p20_E2_BED_mosfets.png"
+    ],
+    "thermistors": [
+      "agentB/evidence/p20_therm_A.png",
+      "agentB/evidence/p20_therm_B.png"
+    ],
+    "endstops_probe": [
+      "agentB/evidence/p20_J26_XMIN.png",
+      "agentB/evidence/p20_J27_YMIN.png",
+      "agentB/evidence/p20_J30_ZMIN.png",
+      "agentB/evidence/p20_J32_XMAX.png",
+      "agentB/evidence/p20_J38_YMAX.png",
+      "agentB/evidence/p20_JP10_zoom.png",
+      "agentB/evidence/p20_ZMAX_probe_J36_J40.png",
+      "agentB/evidence/p20_J36_zoom.png",
+      "agentB/evidence/p20_D16_zoom.png"
+    ],
+    "driver_sheet_jumper_block": [
+      "agentB/evidence/p21_J64_jumper.png",
+      "agentB/evidence/p21_J64_to_MD1_zoom.png",
+      "agentB/evidence/p21_MD1_left.png",
+      "agentB/evidence/p21_MD1_right.png",
+      "agentB/evidence/p22_J66_MD2.png",
+      "agentB/evidence/p23_J68_zoom.png",
+      "agentB/evidence/p23_J68_MD3.png",
+      "agentB/evidence/p24-27_driver_montage.png",
+      "agentB/evidence/p28_driver.png"
+    ],
+    "older_revision_comparison": [
+      "agentB/evidence/p03_oldrev_reset_area.png",
+      "agentB/evidence/p05_oldrev_J22.png"
+    ],
+    "evidence_dir_absolute": "/tmp/claude-0/-home-claude/5b5e3fdc-f446-5e73-aca1-03d1c5f7d071/scratchpad/agentB/evidence/"
+  },
+  "counts": {
+    "mcu_pins_traced": "83 (all 79 GPIOs plus PH0, PH1, BOOT0, NRST)",
+    "driver_signals": "32 (8 sockets x EN/STEP/DIR/CS) + 8 DIAG dispositions (6 jumpered, 2 no-connect)"
+  }
+}

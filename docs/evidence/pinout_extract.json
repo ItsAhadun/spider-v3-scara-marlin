@@ -1,0 +1,830 @@
+{
+ "source": "/mnt/user-data/attachments/5b5e3fdc-f446-5e73-aca1-03d1c5f7d071/c6181996-Spider_V3.0_Pinout-01.pdf (FYSETC Spider v3.0 pinout sheet, single image-only page, rendered at 400 dpi = 6615x4153 px)",
+ "drivers": {
+  "M0": {
+   "axis": "X",
+   "motor_connector_label": "X-MOTOR",
+   "inset": {
+    "EN": "PE9",
+    "STEP": "PE11",
+    "DIR": "PE10",
+    "CS_PDN": "PE7",
+    "DIAG19": "X-:PB14",
+    "V_MOTOR_note": "(60Vmax)"
+   },
+   "silkscreen": {
+    "EN": "PE9",
+    "STEP": "PE11",
+    "DIR": "PE10",
+    "CS_PDN": "PE7",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M1": {
+   "axis": "Y",
+   "motor_connector_label": "Y-MOTOR",
+   "inset": {
+    "EN": "PD9",
+    "STEP": "PD8",
+    "DIR": "PB12",
+    "CS_PDN": "PE15",
+    "DIAG19": "Y-:PB13",
+    "V_MOTOR_note": "(60Vmax)"
+   },
+   "silkscreen": {
+    "EN": "PD9",
+    "STEP": "PD8",
+    "DIR": "PB12",
+    "CS_PDN": "PE15",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M2": {
+   "axis": "Z",
+   "motor_connector_label": "Z-MOTOR",
+   "inset": {
+    "EN": "PD15",
+    "STEP": "PD14",
+    "DIR": "PD13",
+    "CS_PDN": "PD10",
+    "DIAG19": "Z-:PA0",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PD15",
+    "STEP": "PD14",
+    "DIR": "PD13",
+    "CS_PDN": "PD10",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M3": {
+   "axis": "E0",
+   "motor_connector_label": "E0-MOTOR",
+   "inset": {
+    "EN": "PD4",
+    "STEP": "PD5",
+    "DIR": "PD6",
+    "CS_PDN": "PD7",
+    "DIAG19": "Z+:PA3",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PD4",
+    "STEP": "PD5",
+    "DIR": "PD6",
+    "CS_PDN": "PD7",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M4": {
+   "axis": "E1",
+   "motor_connector_label": "E1-MOTOR",
+   "inset": {
+    "EN": "PE5",
+    "STEP": "PE6",
+    "DIR": "PC13",
+    "CS_PDN": "PC14",
+    "DIAG19": "Y+:PA2",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PE5",
+    "STEP": "PE6",
+    "DIR": "PC13",
+    "CS_PDN": "PC14",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M5": {
+   "axis": "E2",
+   "motor_connector_label": "E2-MOTOR",
+   "inset": {
+    "EN": "PE3",
+    "STEP": "PE2",
+    "DIR": "PE4",
+    "CS_PDN": "PC15",
+    "DIAG19": "X+:PA1",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PE3",
+    "STEP": "PE2",
+    "DIR": "PE4",
+    "CS_PDN": "PC15",
+    "DIAG_jumper_printed": true
+   }
+  },
+  "M6": {
+   "axis": "E3",
+   "motor_connector_label": "E3-MOTOR",
+   "inset": {
+    "EN": "PE8",
+    "STEP": "PD12",
+    "DIR": "PC4",
+    "CS_PDN": "PA15",
+    "DIAG19": "NC",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PE8",
+    "STEP": "PD12",
+    "DIR": "PC4",
+    "CS_PDN": "PA15",
+    "DIAG_jumper_printed": false
+   }
+  },
+  "M7": {
+   "axis": "E4",
+   "motor_connector_label": "E4-MOTOR",
+   "inset": {
+    "EN": "PC5",
+    "STEP": "PE1",
+    "DIR": "PE0",
+    "CS_PDN": "PD11",
+    "DIAG19": "NC",
+    "V_MOTOR_note": "(24V)"
+   },
+   "silkscreen": {
+    "EN": "PC5",
+    "STEP": "PE1",
+    "DIR": "PE0",
+    "CS_PDN": "PD11",
+    "DIAG_jumper_printed": false
+   }
+  }
+ },
+ "drivers_notes": "Header above board maps axis to socket: E4=M7, E3=M6, E2=M5, E1=M4, E0=M3, Z=M2, Y=M1, X=M0. Inset pin numbering: pin1 EN, pin7 STEP, pin8 DIR, pin17 NC, pin19 DIAG label as shown. Silkscreen blocks print EN/DIR/STEP/CS/PDN only (no DIAG pin name); M0-M5 blocks have a 2-pin 'DIAG' jumper drawn, M6/M7 do not. Pin 19 for E3-MOT and E4-MOT is drawn as 'NC'.",
+ "motor_spi": {
+  "per_inset_identical_for_all_8": true,
+  "inset": {
+   "MISO": "PE13",
+   "SCK": "PE12",
+   "MOSI": "PE14"
+  },
+  "inset_jumper_block_positions": {
+   "12": "PE13 - MISO",
+   "11": "CS / PDN - <per-driver pin>",
+   "10": "SCK - PE12",
+   "9": "MOSI - PE14"
+  },
+  "MotorSPI_silkscreen": {
+   "SCK": "PE12",
+   "MISO": "PE13",
+   "MOSI": "PE14"
+  },
+  "MotorSPI_note": "'MotorSPI' is a silkscreen text block (SCK(PE12) / MISO(PE13) / MOSI(PE14)) beside the red/blue 2x5 probe header; no separate pin header is visible under that text in the render."
+ },
+ "endstops": {
+  "X_MIN": {
+   "signal": "PB14",
+   "pins_callout": [
+    "PB14",
+    "GND",
+    "3V3"
+   ],
+   "pins_silkscreen": [
+    "PB14",
+    "G",
+    "3V3"
+   ],
+   "voltage": "3V3"
+  },
+  "Y_MIN": {
+   "signal": "PB13",
+   "pins_callout": [
+    "PB13",
+    "GND",
+    "3V3"
+   ],
+   "pins_silkscreen": [
+    "PB13",
+    "G",
+    "3V3"
+   ],
+   "voltage": "3V3"
+  },
+  "Z_MIN": {
+   "signal": "PA0",
+   "pins_callout": [
+    "PA0",
+    "GND",
+    "3V3"
+   ],
+   "pins_silkscreen": [
+    "PA0",
+    "G",
+    "3V3"
+   ],
+   "voltage": "3V3"
+  },
+  "X_MAX": {
+   "signal": "PA1",
+   "pins_callout": [
+    "PA1",
+    "GND",
+    "5V"
+   ],
+   "pins_silkscreen": [
+    "PA1",
+    "G",
+    "5V"
+   ],
+   "voltage": "5V"
+  },
+  "Y_MAX": {
+   "signal": "PA2",
+   "pins_callout": [
+    "PA2",
+    "GND",
+    "5V"
+   ],
+   "pins_silkscreen": [
+    "PA2",
+    "G",
+    "5V"
+   ],
+   "voltage": "5V"
+  },
+  "Z_MAX": {
+   "signal": "PA3",
+   "pins_callout": [
+    "PA3",
+    "GND",
+    "V_PROBE"
+   ],
+   "pins_silkscreen": [
+    "PA3",
+    "G",
+    "VP"
+   ],
+   "voltage": "V_PROBE (silkscreen 'VP')"
+  },
+  "note": "Endstop signal pins agree with the inset DIAG labels: X-:PB14, Y-:PB13, Z-:PA0, X+:PA1, Y+:PA2, Z+:PA3."
+ },
+ "heaters": {
+  "HEAT0": {
+   "pin": "PB15",
+   "other": "24V",
+   "silkscreen": "-PB15 24V"
+  },
+  "HEAT1": {
+   "pin": "PC8",
+   "other": "24V",
+   "silkscreen": "-PC8 24V"
+  },
+  "HEAT2": {
+   "pin": "PB3",
+   "other": "24V",
+   "silkscreen": "-PB3 24V"
+  },
+  "BED-OUT": {
+   "pin": "PB4",
+   "other": "24V",
+   "silkscreen": "-PB4 24V"
+  },
+  "BED-IN": {
+   "pins_callout": [
+    "GND",
+    "HBIN_24V"
+   ],
+   "pins_silkscreen": [
+    "GND",
+    "24V"
+   ]
+  },
+  "PWR-IN": {
+   "pins_callout": [
+    "GND",
+    "PWR_24V"
+   ],
+   "pins_silkscreen": [
+    "GND",
+    "24V"
+   ]
+  },
+  "heater_LED_labels": [
+   "E0",
+   "E1",
+   "E2",
+   "BED"
+  ]
+ },
+ "thermistors": {
+  "T0": {
+   "pin": "PC0",
+   "other": "GND",
+   "silkscreen": "G PC0"
+  },
+  "T1": {
+   "pin": "PC1",
+   "other": "GND",
+   "silkscreen": "G PC1"
+  },
+  "T2": {
+   "pin": "PC2",
+   "other": "GND",
+   "silkscreen": "G PC2"
+  },
+  "T3": {
+   "pin": "PC3",
+   "other": "GND",
+   "silkscreen": "G PC3"
+  },
+  "T4": {
+   "pin": "PB1",
+   "other": "GND",
+   "silkscreen": "G PB1"
+  },
+  "TB": {
+   "pin": "PB0",
+   "other": "GND",
+   "silkscreen": "G PB0"
+  }
+ },
+ "fans": {
+  "FAN0": {
+   "pin": "PA13",
+   "callout_power_label": "V-FAN0",
+   "silkscreen": "V+ -PA13",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "FAN1": {
+   "pin": "PA14",
+   "callout_power_label": "V-FAN1",
+   "silkscreen": "V+ -PA14",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "FAN2": {
+   "pin": "PB2",
+   "callout_power_label": "V-FAN2",
+   "silkscreen": "V+ -PB2",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "FAN3": {
+   "pin": "PB5",
+   "callout_extra_label": "G",
+   "silkscreen": "V+ -PB5",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "FAN4": {
+   "pin": "PB6",
+   "callout_extra_label": "R",
+   "silkscreen": "V+ -PB6",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "FAN5": {
+   "pin": "PB7",
+   "callout_extra_label": "B",
+   "silkscreen": "V+ -PB7",
+   "voltage_jumper": [
+    "24V",
+    "12V",
+    "5V"
+   ]
+  },
+  "note": "FAN5/FAN4/FAN3 callouts carry letters B/R/G respectively, matching a 4-pin 'VCC B R G' header (see other.rgb_12v_header)."
+ },
+ "exp1": {
+  "row_with_5V": [
+   "PA8",
+   "PD2",
+   "PC12",
+   "PD1",
+   "5V"
+  ],
+  "row_with_GND": [
+   "PC9",
+   "PC11",
+   "PC10",
+   "PD0",
+   "GND"
+  ],
+  "pairs_callout_and_silkscreen": [
+   [
+    "PA8",
+    "PC9"
+   ],
+   [
+    "PD2",
+    "PC11"
+   ],
+   [
+    "PC12",
+    "PC10"
+   ],
+   [
+    "PD1",
+    "PD0"
+   ],
+   [
+    "5V",
+    "GND"
+   ]
+  ],
+  "note": "No header pin numbers (1-10) are printed. Pairs are in the order drawn; callout and board silkscreen agree."
+ },
+ "exp2": {
+  "row_with_5V_callout": [
+   "SCK/PA5",
+   "SS/PA4",
+   "MOSI/PA7",
+   "RST",
+   "5V"
+  ],
+  "row_with_GND_callout": [
+   "MISO/PA6",
+   "PC6",
+   "PC7",
+   "BP10",
+   "GND"
+  ],
+  "row_with_5V_silkscreen": [
+   "PA5",
+   "PA4",
+   "PA7",
+   "RST",
+   "5V"
+  ],
+  "row_with_GND_silkscreen": [
+   "PA6",
+   "PC6",
+   "PC7",
+   "PB10",
+   "GND"
+  ],
+  "note": "Callout prints 'BP10' (verified at 5x zoom); board silkscreen prints 'PB10'. No header pin numbers printed."
+ },
+ "sd": {
+  "header_callout": {
+   "left_column": [
+    "RST",
+    "CS",
+    "MOSI",
+    "CD"
+   ],
+   "right_column": [
+    "GND",
+    "SCK",
+    "MISO",
+    "5V"
+   ]
+  },
+  "silkscreen": {
+   "RST": "RST (no MCU pin printed)",
+   "CS": "PA4",
+   "MOSI": "PA7",
+   "CD": "PB10",
+   "GND": "GND",
+   "SCK": "PA5",
+   "MISO": "PA6",
+   "5V": "5V"
+  },
+  "note": "MCU pins come only from board silkscreen; the SD callout itself prints no MCU pins. Same pins as EXP2 (SCK/PA5, SS/PA4, MOSI/PA7, MISO/PA6, PB10)."
+ },
+ "rgb_data": "PD3",
+ "rgb_5v_header": {
+  "callout": [
+   "GND",
+   "DATA (PD3)",
+   "5V"
+  ],
+  "silkscreen": "G | DATA(PD3) | 5V"
+ },
+ "can": {
+  "L": "PD0",
+  "H": "PD1",
+  "drawn_as": "CAN callout: 'L' over a dot labelled 'PD0', 'H' over a dot labelled 'PD1'; board connector silkscreen 'L' 'H' 'CAN'",
+  "note": "PD0/PD1 are also listed on EXP1 (as printed)."
+ },
+ "i2c": {
+  "callout_4pin_header": [
+   "SDA",
+   "SCL",
+   "GND",
+   "3V3"
+  ],
+  "mcu_pins": "none printed",
+  "board_silkscreen_on_4pin_header": "none visible",
+  "also_on_left_2x5_header_silkscreen": "SDA, SCL positions on top row (see pi_uart)"
+ },
+ "pi_uart": {
+  "header": "left 2x5 header (black dashed callout inside blue box)",
+  "callout_top_row": [
+   "NC",
+   "NC",
+   "NC",
+   "NC",
+   "GND"
+  ],
+  "callout_bottom_row": [
+   "5V",
+   "5V",
+   "GND",
+   "RX",
+   "TX"
+  ],
+  "silkscreen_top_row": [
+   "NC",
+   "SDA",
+   "SCL",
+   "NC",
+   "GND"
+  ],
+  "silkscreen_bottom_row": [
+   "5V",
+   "5V",
+   "GND",
+   "RX",
+   "TX"
+  ],
+  "RX": "RX (no MCU pin printed)",
+  "TX": "TX (no MCU pin printed)"
+ },
+ "probe": {
+  "header": "right 2x5 header (red top row / blue bottom row)",
+  "callout_top_row": [
+   "GND",
+   "5V",
+   "SIG",
+   "GND",
+   "Z-"
+  ],
+  "callout_bottom_row": [
+   "3V3",
+   "BTO",
+   "GND",
+   "IO",
+   "CLK"
+  ],
+  "silkscreen_top_row": [
+   "G",
+   "5V",
+   "SIG",
+   "G",
+   "Z-"
+  ],
+  "silkscreen_bottom_row": [
+   "3V3",
+   "BT0",
+   "G",
+   "IO",
+   "CLK"
+  ],
+  "mcu_pins": "none printed for SIG, Z-, IO, CLK, BT0",
+  "V_PROBE_selector": {
+   "callout": [
+    "24V",
+    "V_PROBE",
+    "DC5V"
+   ],
+   "silkscreen": [
+    "24V",
+    "VP",
+    "5V"
+   ],
+   "note": "V_PROBE is the middle pin; Z_MAX connector's supply pin is V_PROBE/VP"
+  }
+ },
+ "usb": {
+  "DP": "PA12",
+  "DM": "PA11",
+  "callout_4pin": [
+   "GND",
+   "DP",
+   "DM",
+   "UVCC"
+  ],
+  "silkscreen": [
+   "GND",
+   "DP(PA12)",
+   "DM(PA11)",
+   "U5V"
+  ],
+  "note": "MCU pins only on board silkscreen; USB-C receptacle has no labels."
+ },
+ "power": {
+  "main_input_3pin_callout": [
+   "24V",
+   "48V",
+   "GND"
+  ],
+  "PWR-IN": [
+   "GND",
+   "PWR_24V"
+  ],
+  "BED-IN": [
+   "GND",
+   "HBIN_24V"
+  ],
+  "60Vmax_sockets": [
+   "M0 (X-MOT)",
+   "M1 (Y-MOT)"
+  ],
+  "24V_sockets": [
+   "M2 (Z)",
+   "M3 (E0)",
+   "M4 (E1)",
+   "M5 (E2)",
+   "M6 (E3)",
+   "M7 (E4)"
+  ],
+  "60V_note": "'(60Vmax)' in red appears only in the X-MOT and Y-MOT insets above V-MOTOR pin 16; all others show '(24V)'. The board render has no '60V' text; M0/M1 sockets are drawn with red headers (others blue) inside a red dashed outline.",
+  "5V_source_jumper": {
+   "callout": [
+    "DC5V",
+    "5V",
+    "USB5V"
+   ],
+   "silkscreen": [
+    "DC5V",
+    "U5V"
+   ]
+  },
+  "power_out_header_2x4": {
+   "callout_top": [
+    "24V",
+    "24V",
+    "12V",
+    "12V"
+   ],
+   "callout_bottom": [
+    "GND",
+    "GND",
+    "GND",
+    "GND"
+   ],
+   "silkscreen": [
+    "24",
+    "12"
+   ]
+  },
+  "status_LEDs": [
+   "24V",
+   "12V",
+   "5V",
+   "3V3",
+   "FLASH"
+  ]
+ },
+ "other": {
+  "rgb_12v_header": {
+   "callout": [
+    "VCC",
+    "B",
+    "R",
+    "G"
+   ],
+   "silkscreen": [
+    "VCC",
+    "B",
+    "R",
+    "G"
+   ],
+   "mcu_pins": "none printed; callouts tag FAN5=B (PB7), FAN4=R (PB6), FAN3=G (PB5)"
+  },
+  "boot_header_4pin": {
+   "silkscreen": [
+    "BT0",
+    "3V3",
+    "RST",
+    "GND"
+   ],
+   "mcu_pins": "none"
+  },
+  "buttons": [
+   "RST",
+   "BT0"
+  ],
+  "motor_connector_pinout": [
+   "A2",
+   "A1",
+   "B1",
+   "B2"
+  ],
+  "inset_right_column": {
+   "16": "V-MOTOR",
+   "15": "GND",
+   "14": "A2",
+   "13": "A1",
+   "12": "B1",
+   "11": "B2",
+   "10": "VIO(5V)",
+   "9": "GND",
+   "note": "Y-MOT inset omits the A2/A1/B1/B2 labels on pins 14-11."
+  },
+  "inset_left_column_functions": {
+   "1": "EN",
+   "2": "MOSI / MS1",
+   "3": "SCK / MS2",
+   "4": "CS / PDN / MS3",
+   "5": "RX / MISO / RST",
+   "6": "CLK / SLEEP",
+   "7": "STEP",
+   "8": "DIR"
+  },
+  "board_text": [
+   "Spider_V3.0",
+   "www.wiki.fysetc.com/spider"
+  ],
+  "no_other_mcu_pins_found": "Every MCU pin label found on the sheet is recorded above."
+ },
+ "uncertain": [
+  "drivers.M0.silkscreen.STEP 'PE11': the lower stroke of the 'E' is hidden under a cyan dashed overlay line, so E vs F cannot be fully confirmed from the silkscreen alone. The X-MOT inset clearly shows PE11.",
+  "drivers.M1.inset.DIAG19 'Y-:PB13': the hyphen after 'Y' sits on the dashed leader line, so 'Y-:' vs 'Y:' is slightly ambiguous at 5x zoom. The MCU pin PB13 itself is clear.",
+  "exp2 callout prints 'BP10' (confirmed at 5x); board silkscreen for EXP2 and SD CD both print 'PB10'. Recorded verbatim. Treating it as PB10 is an inference from the silkscreen.",
+  "pi_uart top row: the callout shows NC,NC,NC,NC,GND, but the board silkscreen shows NC,SDA,SCL,NC,GND. The sheet contradicts itself on whether positions 2-3 carry SDA/SCL.",
+  "can: the callout pairs 'L' with PD0 and 'H' with PD1. These are MCU pin names under bus-line letters. The sheet does not say which is CAN RX or TX. PD0/PD1 are also printed on EXP1.",
+  "fans silkscreen (FAN0 PA13, FAN1 PA14, FAN2 PB2, FAN3-5) and endstop silkscreen row: lower parts of glyphs are overlapped by dashed overlay lines. They are legible and match the clean callouts, so the values are taken from the callouts.",
+  "No MCU pin is printed anywhere for: Pi UART RX/TX, I2C SDA/SCL, probe SIG / Z- / IO / CLK / BT0, SD RST, or the VCC/B/R/G header. These are left as 'none printed', not guessed.",
+  "probe callout 'BTO' (letter O) vs silkscreen 'BT0' (digit 0); USB callout 'UVCC' vs silkscreen 'U5V'. These are naming differences only, not MCU pins.",
+  "60Vmax: only the X-MOT and Y-MOT insets say '(60Vmax)'. Nothing on the board render says 60V; the red socket headers on M0/M1 only support this indirectly."
+ ],
+ "evidence_files": {
+  "overview": "evidence/overview_1400.png",
+  "X-MOT_inset": "evidence/X-MOT_inset.png",
+  "Y-MOT_inset": "evidence/Y-MOT_inset.png",
+  "Z-MOT_inset": "evidence/Z-MOT_inset.png",
+  "E0-MOT_inset": "evidence/E0-MOT_inset.png",
+  "E1-MOT_inset": "evidence/E1-MOT_inset.png",
+  "E2-MOT_inset": "evidence/E2-MOT_inset.png",
+  "E3-MOT_inset": "evidence/E3-MOT_inset.png",
+  "E4-MOT_inset": "evidence/E4-MOT_inset.png",
+  "DIAG19_all": "evidence/DIAG19_labels_rotated_zoom.png",
+  "DIAG19_X": "evidence/DIAG19_X_zoom.png",
+  "DIAG19_Y": "evidence/DIAG19_Y_zoom.png",
+  "inset_SPI_CSPDN_X_Y_Z_E0": "evidence/inset_bottom_SPI_CSPDN_labels_A.png",
+  "inset_SPI_CSPDN_E1_E2_E3_E4": "evidence/inset_bottom_SPI_CSPDN_labels_B.png",
+  "silk_M0": "evidence/silk_M0_zoom3x.png",
+  "silk_M0_STEP": "evidence/silk_M0_STEP_zoom6x.png",
+  "silk_M0_CSPDN": "evidence/silk_M0_CSPDN_zoom6x.png",
+  "silk_M1": "evidence/silk_M1_zoom3x.png",
+  "silk_M2": "evidence/silk_M2_zoom3x.png",
+  "silk_M3": "evidence/silk_M3_zoom3x.png",
+  "silk_M4": "evidence/silk_M4_zoom3x.png",
+  "silk_M5": "evidence/silk_M5_zoom3x.png",
+  "silk_M6": "evidence/silk_M6_zoom3x.png",
+  "silk_M7": "evidence/silk_M7_zoom3x.png",
+  "silk_pairs": "evidence/silk_M1_M0.png, evidence/silk_M3_M2.png, evidence/silk_M5_M4.png, evidence/silk_M7_M6.png",
+  "axis_to_M_mapping": "evidence/top_axis_Mnum_labels_left.png, evidence/top_axis_Mnum_labels_right.png",
+  "heaters": "evidence/heaters_callout.png",
+  "heaters_zoom": "evidence/heaters_pinlabels_zoom4x.png",
+  "heaters_silkscreen": "evidence/silk_terminal_block_heaters_rot.png",
+  "bed_pwr_silkscreen": "evidence/silk_terminal_block_bed_pwr_rot.png",
+  "heater_LEDs": "evidence/board_fuse_area_left.png",
+  "power_rgb_sd_callouts": "evidence/right_power_rgb_sd.png",
+  "rgb_data": "evidence/RGB_DATA_PD3_zoom.png",
+  "usb_i2c_can_5v_callouts": "evidence/right_usb_i2c_can_5v.png",
+  "can": "evidence/CAN_callout_zoom.png",
+  "board_motorspi_sd_usb": "evidence/board_motorspi_sd_usb_region.png",
+  "motorspi_sd_rgb_silk": "evidence/silk_MotorSPI_SD_RGB_zoom.png",
+  "sd_cd_silk": "evidence/silk_SD_CD_line_zoom.png",
+  "usb_leds_silk": "evidence/silk_USB_LEDs_zoom.png",
+  "uart_probe_silk": "evidence/silk_headers_I2C_UART_probe_SWD_zoom.png",
+  "uart_probe_callout": "evidence/left_header_callouts_UART_I2C_probe_SWD.png",
+  "uart_callout_toprow": "evidence/left_header_callout_UART_toprow_zoom.png",
+  "probe_callout_bottomrow": "evidence/left_header_callout_probe_bottomrow_zoom.png",
+  "endstop_callouts": "evidence/endstop_callouts_bottom_left.png",
+  "endstop_callouts_MAX_zoom": "evidence/endstop_callouts_MAX_zoom.png",
+  "endstop_callouts_MIN_zoom": "evidence/endstop_callouts_MIN_zoom.png",
+  "endstop_silk": "evidence/silk_endstop_MAX_row.png",
+  "endstop_silk_zoom": "evidence/silk_endstop_row_zoom_left.png, evidence/silk_endstop_row_zoom_right.png",
+  "fans_thermistors_board": "evidence/board_fans_thermistors_region.png",
+  "fans_silk": "evidence/silk_fan_labels_zoom_FAN5_4_3.png, evidence/silk_fan_labels_zoom_FAN0_1_2.png",
+  "thermistors_silk": "evidence/silk_thermistor_labels_zoom.png",
+  "fan_callouts": "evidence/fan_callouts.png",
+  "fan_callout_pins": "evidence/fan_callout_pinlabels_zoom_A.png, evidence/fan_callout_pinlabels_zoom_B.png",
+  "thermistor_callout": "evidence/thermistor_callout.png",
+  "vprobe_rgb12v": "evidence/VPROBE_RGB_callout.png",
+  "board_vprobe_rgb_powerout": "evidence/board_left_of_fans_VCC_BRG_region.png",
+  "exp1": "evidence/EXP1_callout.png",
+  "exp2": "evidence/EXP2_callout.png",
+  "exp2_BP10": "evidence/EXP2_callout_BP10_zoom.png",
+  "exp_board": "evidence/board_EXP1_EXP2_region.png",
+  "exp_silk": "evidence/silk_EXP1_EXP2_labels_zoom.png",
+  "right_edge": "evidence/board_right_edge_SD_USB_I2C.png",
+  "boot_header": "evidence/silk_BT0_3V3_RST_GND_header_zoom.png",
+  "i2c_header_board": "evidence/board_I2C_4pin_header_zoom.png",
+  "m0_m1_60v_area": "evidence/board_M1_M0_driver_area_60V.png"
+ }
+}
